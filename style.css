@@ -1,0 +1,954 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f1f2f6;
+}
+
+header {
+    background: linear-gradient(135deg, #ff4757, #ff7f50);
+    color: #333;
+    text-align: center;
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    opacity: 0.1;
+}
+
+.header-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+nav {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0;
+    position: relative;
+}
+
+nav ul li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2rem;
+    color: #2f3542;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 导航项悬停效果 */
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff4757, #ff6b81);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::before {
+    width: 100%;
+}
+
+/* 导航图标样式 */
+nav ul li a i {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+    color: #ff4757;
+    transition: transform 0.3s ease;
+}
+
+nav ul li a span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* 悬停效果 */
+nav ul li a:hover {
+    color: #ff4757;
+    background: linear-gradient(to bottom, rgba(255,71,87,0.05), transparent);
+}
+
+nav ul li a:hover i {
+    transform: translateY(-2px);
+}
+
+/* 活跃状态 */
+nav ul li a.active {
+    color: #ff4757;
+}
+
+nav ul li a.active::before {
+    width: 100%;
+}
+
+/* 文件柜图标修复 */
+.tool-item i.fa-cabinet-filing {
+    /* 使用其他合适的图标 */
+    font-family: "Font Awesome 6 Free";
+    content: "\f07b"; /* 使用文件夹图标 */
+    color: #ffa502;
+}
+
+/* 可以替换为 */
+.tool-item i.fa-folder {
+    color: #ffa502;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    nav ul {
+        justify-content: space-around;
+    }
+    
+    nav ul li a {
+        padding: 0.8rem 1rem;
+    }
+    
+    nav ul li a i {
+        font-size: 1.2rem;
+    }
+    
+    nav ul li a span {
+        font-size: 0.8rem;
+    }
+}
+
+/* 添加导航项动画效果 */
+@keyframes navItemFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav ul li {
+    animation: navItemFade 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+.contact-section {
+    padding: 4rem 2rem;
+    background: #f9f9f9;
+}
+
+.contact-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.social-links {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.social-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s;
+}
+
+.social-item:hover {
+    transform: translateY(-5px);
+}
+
+.social-item i {
+    font-size: 1.5rem;
+    color: #6e8efb;
+}
+
+.social-item a {
+    color: #6e8efb;
+    text-decoration: none;
+}
+
+.social-item a:hover {
+    text-decoration: underline;
+}
+
+.douyin-link {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    background: #fe2c55;
+    color: white !important;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.douyin-link:hover {
+    background: #e62a4d;
+    text-decoration: none !important;
+}
+
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 2rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+}
+
+/* 工具区域样式 */
+.tools-section {
+    padding: 3rem 2rem;
+    background: #f9f9f9;
+}
+
+.tools-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.tool-category {
+    background: white;
+    border-radius: 20px;
+    margin: 2rem auto;
+    transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--gradient-1);
+}
+
+.tool-category h3 {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(241, 242, 246, 0.5);
+    border-radius: 10px;
+}
+
+.tool-category h3 i {
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.tools-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.tool-item {
+    text-decoration: none;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    color: #333;
+    min-height: 120px;
+}
+
+.tool-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255,71,87,0.2);
+    border-color: #ff4757;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+.tool-item i {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    color: #ff4757;
+    transition: all 0.3s ease;
+}
+
+.tool-item:hover i {
+    transform: scale(1.1);
+}
+
+.tool-item span {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    color: #2f3542;
+    margin-top: 0.5rem;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.tool-category h3 {
+    color: #2f3542;
+    margin: 2rem 0 1.5rem 1rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tool-category h3 i {
+    color: #ff4757;
+}
+
+.tool-item i.fa-weixin { color: #07C160; }
+.tool-item i.fa-qq { color: #12B7F5; }
+.tool-item i.fa-steam { color: #171a21; }
+.tool-item i.fa-film { color: #E50914; }
+.tool-item i.fa-music { color: #1DB954; }
+.tool-item i.fa-book-open { color: #FF6B6B; }
+.tool-item i.fa-search { color: #4285F4; }
+.tool-item i.fa-file { color: #FFA502; }
+.tool-item i.fa-robot { color: #575FCF; }
+
+.tool-item:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .tool-item {
+        padding: 1rem;
+        min-height: 100px;
+    }
+
+    .tool-item i {
+        font-size: 1.5rem;
+    }
+
+    .tool-item span {
+        font-size: 0.9rem;
+    }
+}
+
+/* 页脚样式 */
+footer {
+    background: #2f3542;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* 联系方式容器样式 */
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* 单个联系方式项样式 */
+.contact-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 图标样式 */
+.contact-item i {
+    font-size: 1.2rem;
+    color: #ff4757;
+}
+
+/* 文字样式 */
+.contact-item span,
+.contact-item a {
+    color: #ffffff;
+    font-size: 0.95rem;
+    text-decoration: none;
+}
+
+/* 链接悬停效果 */
+.contact-item a:hover {
+    color: #ff4757;
+    text-decoration: none;
+}
+
+/* 版权信息样式 */
+.copyright {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .contact-item {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+}
+
+/* 特定社交平台图标颜色 */
+.contact-item i.fa-weixin { color: #07C160; }
+.contact-item i.fa-qq { color: #12B7F5; }
+.contact-item i.fa-tiktok { color: #ff0050; }
+.contact-item i.fa-weibo { color: #E6162D; }
+.contact-item i.fa-telegram { color: #0088cc; }
+
+/* 添加一些新的图标样式 */
+.tool-item i.fa-weixin {
+    color: #07C160;
+}
+
+.tool-item i.fa-steam {
+    color: #171a21;
+}
+
+.tool-item i.fa-car {
+    color: #4A90E2;
+}
+
+/* 为软件工具分类添加特殊样式 */
+.tool-category:nth-child(odd) {
+    background: linear-gradient(to right bottom, white, #f8f9fa);
+}
+
+.tool-category:nth-child(even) {
+    background: linear-gradient(to right bottom, #f8f9fa, white);
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tool-category {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* 分类特殊样式 */
+.tool-category:nth-child(2) {
+    background: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+}
+
+/* 优化工具项目的悬停效果 */
+.tool-item:hover {
+    background: white;
+    border-color: #ff0000;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 添加滚动行为相关样式 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 确保footer在滚动时有足够的空间 */
+footer {
+    scroll-margin-top: 2rem; /* 确保滚动到footer时有适当的上边距 */
+}
+
+/* 优化导航链接的活跃状态 */
+nav ul li a.active {
+    color: #ff4757;
+}
+
+/* 添加滚动指示器 */
+.scroll-indicator {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #ff4757;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 2px 10px rgba(255,71,87,0.3);
+}
+
+.scroll-indicator.visible {
+    opacity: 1;
+}
+
+/* 添加当前位置指示器 */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: #ff4757;
+    transition: width 0.3s;
+}
+
+nav ul li a.active::after {
+    width: 100%;
+}
+
+/* 返回顶部按钮样式 */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #ff4757;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(255,71,87,0.3);
+    z-index: 1000;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #ff6b81;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(255,71,87,0.4);
+}
+
+.back-to-top i {
+    font-size: 1.2rem;
+}
+
+/* 首页导航项特殊效果 */
+nav ul li a.scroll-to-top {
+    position: relative;
+    overflow: hidden;
+}
+
+nav ul li a.scroll-to-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255,71,87,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+nav ul li a.scroll-to-top:hover::before {
+    transform: translateX(0);
+}
+
+/* 当页面在顶部时，首页导航项的特殊样式 */
+nav ul li a.scroll-to-top.active {
+    color: #ff4757;
+}
+
+nav ul li a.scroll-to-top.active i {
+    transform: scale(1.1);
+}
+
+/* 优化移动端显示 */
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* 暗色模式样式 */
+.dark-mode {
+    background-color: #1a1b1e !important;
+    color: #e0e0e0 !important;
+}
+
+/* 头部暗色模式 */
+.dark-mode header {
+    background: linear-gradient(135deg, #2b5876, #4e4376);
+    color: #ffffff;
+}
+
+/* 导航栏暗色模式 */
+.dark-mode nav {
+    background-color: #2d2f34 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.dark-mode nav ul li a {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode nav ul li a:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+/* 工具区域暗色模式 */
+.dark-mode .tools-section {
+    background-color: #1a1b1e !important;
+}
+
+.dark-mode .tool-category {
+    background-color: #2d2f34 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.dark-mode .tool-category:nth-child(odd) {
+    background: linear-gradient(to right bottom, #2d2f34, #32343a) !important;
+}
+
+.dark-mode .tool-category:nth-child(even) {
+    background: linear-gradient(to right bottom, #32343a, #2d2f34) !important;
+}
+
+.dark-mode .tool-item {
+    background-color: #3a3d44 !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #454950;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.dark-mode .tool-item:hover {
+    background-color: #454950 !important;
+    border-color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.2);
+}
+
+.dark-mode .tool-item span {
+    color: #e0e0e0;
+}
+
+/* 标题暗色模式 */
+.dark-mode h2,
+.dark-mode h3 {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .tool-category h3 {
+    background: rgba(0,0,0,0.2);
+}
+
+/* 页脚暗色模式 */
+.dark-mode footer {
+    background-color: #2d2f34 !important;
+}
+
+.dark-mode .contact-item {
+    background: rgba(255,255,255,0.05);
+}
+
+.dark-mode .contact-item:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* 返回顶部按钮暗色模式 */
+.dark-mode .back-to-top {
+    background: #6366f1;
+    box-shadow: 0 2px 10px rgba(99,102,241,0.3);
+}
+
+.dark-mode .back-to-top:hover {
+    background: #818cf8;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.4);
+}
+
+/* 图标颜色保持不变，让它们更醒目 */
+.dark-mode .tool-item i.fa-weixin { color: #07C160; }
+.dark-mode .tool-item i.fa-qq { color: #12B7F5; }
+.dark-mode .tool-item i.fa-steam { color: #ffffff; }
+.dark-mode .tool-item i.fa-film { color: #E50914; }
+.dark-mode .tool-item i.fa-music { color: #1DB954; }
+.dark-mode .tool-item i.fa-book-open { color: #FF6B6B; }
+.dark-mode .tool-item i.fa-search { color: #4285F4; }
+.dark-mode .tool-item i.fa-file { color: #FFA502; }
+.dark-mode .tool-item i.fa-robot { color: #818cf8; }
+
+/* 平滑过渡 */
+body,
+header,
+nav,
+.tool-category,
+.tool-item,
+footer,
+h2,
+h3,
+.back-to-top {
+    transition: all 0.3s ease;
+}
+
+/* 响应式设计优化 */
+
+/* 平板设备 (768px - 1024px) */
+@media (max-width: 1024px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tool-item {
+        padding: 1.2rem;
+    }
+
+    .header-content h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* 手机设备 (小于 768px) */
+@media (max-width: 768px) {
+    /* 导航栏调整 */
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    nav ul {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+    }
+
+    nav ul li a {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    nav ul li a i {
+        font-size: 1.2rem;
+    }
+
+    /* 头部调整 */
+    header {
+        padding: 2rem 0;
+    }
+
+    .header-content h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    /* 工具区域调整 */
+    .tools-section {
+        padding: 2rem 1rem;
+    }
+
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .tool-item {
+        padding: 1rem;
+        min-height: 90px;
+    }
+
+    .tool-item i {
+        font-size: 1.5rem;
+    }
+
+    .tool-item span {
+        font-size: 0.85rem;
+    }
+
+    /* 分类标题调整 */
+    .tool-category h3 {
+        font-size: 1.1rem;
+        margin: 1rem 0 1rem 0.5rem;
+    }
+
+    /* 页脚调整 */
+    .contact-info {
+        flex-direction: column;
+    }
+
+    .contact-item {
+        width: 100%;
+        justify-content: center;
+        padding: 0.6rem 1rem;
+    }
+}
+
+/* 小屏手机 (小于 480px) */
+@media (max-width: 480px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-item {
+        min-height: 80px;
+    }
+
+    nav ul li a span {
+        font-size: 0.7rem;
+    }
+
+    .back-to-top {
+        width: 35px;
+        height: 35px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
+
+/* 横屏模式优化 */
+@media (max-height: 480px) and (orientation: landscape) {
+    header {
+        padding: 1rem 0;
+    }
+
+    nav ul {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 大屏设备优化 */
+@media (min-width: 1440px) {
+    .tools-section,
+    .nav-container,
+    .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .tools-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* 确保内容不会太宽 */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* 添加触摸设备的优化 */
+@media (hover: none) {
+    .tool-item:hover {
+        transform: none;
+    }
+
+    .contact-item:hover {
+        transform: none;
+    }
+} 
