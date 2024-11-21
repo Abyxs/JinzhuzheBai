@@ -1,88 +1,79 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 获取所有导航链接
-    const navLinks = document.querySelectorAll('nav a');
+    const toolSearch = document.getElementById('toolSearch');
+    const searchResult = document.getElementById('searchResult');
     
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // 获取目标元素的id
-            const targetId = this.getAttribute('href');
-            if(targetId.startsWith('#')) {
-                e.preventDefault();
+    // 获取所有工具项
+    const tools = Array.from(document.querySelectorAll('.tool-item')).map(item => ({
+        element: item,
+        name: item.querySelector('span').textContent.trim(),
+        category: item.closest('.tool-category').querySelector('h3').textContent.trim()
+    }));
+
+    // 搜索功能
+    function performSearch(keyword) {
+        searchResult.innerHTML = '';
+        
+        if (!keyword) {
+            searchResult.classList.remove('active');
+            return;
+        }
+
+        const matches = tools.filter(tool => 
+            tool.name.toLowerCase().includes(keyword.toLowerCase()) ||
+            tool.category.toLowerCase().includes(keyword.toLowerCase())
+        );
+
+        if (matches.length > 0) {
+            matches.forEach(tool => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.innerHTML = `
+                    <span>${tool.name}</span>
+                    <small style="color: #666; margin-left: 8px;">${tool.category}</small>
+                `;
                 
-                // 获取目标元素
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    // 平滑滚动到目标位置
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // 更新URL，但不进行实际跳转
-                    history.pushState(null, null, targetId);
-                }
-            }
-        });
-    });
-
-    // 获取返回顶部按钮
-    const backToTop = document.getElementById('backToTop');
-    const homeLink = document.querySelector('.scroll-to-top');
-    
-    // 点击首页链接返回顶部
-    homeLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        history.pushState(null, null, '#top');
-    });
-
-    // 显示/隐藏返回顶部按钮
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            backToTop.classList.add('visible');
+                div.addEventListener('click', () => {
+                    tool.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    tool.element.classList.add('highlight');
+                    setTimeout(() => tool.element.classList.remove('highlight'), 2000);
+                    searchResult.classList.remove('active');
+                    toolSearch.value = '';
+                });
+                
+                searchResult.appendChild(div);
+            });
+            searchResult.classList.add('active');
         } else {
-            backToTop.classList.remove('visible');
+            const noResult = document.createElement('div');
+            noResult.className = 'search-result-item no-result';
+            noResult.textContent = '未找到相关工具';
+            searchResult.appendChild(noResult);
+            searchResult.classList.add('active');
+        }
+    }
+
+    // 输入事件监听
+    let debounceTimer;
+    toolSearch.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            performSearch(e.target.value.trim());
+        }, 300);
+    });
+
+    // 点击空白处关闭搜索结果
+    document.addEventListener('click', (e) => {
+        if (!toolSearch.contains(e.target) && !searchResult.contains(e.target)) {
+            searchResult.classList.remove('active');
         }
     });
 
-    // 点击返回顶部按钮
-    backToTop.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // 添加主题切换功能
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('i');
-    const themeText = themeToggle.querySelector('span');
-    
-    // 检查本地存储中的主题设置
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-    if (isDarkMode) {
-        document.body.classList.add('dark-mode');
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-        themeText.textContent = '亮色模式';
-    }
-
-    // 主题切换点击事件
-    themeToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.body.classList.toggle('dark-mode');
-        
-        // 更新图标和文本
-        if (document.body.classList.contains('dark-mode')) {
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-            themeText.textContent = '亮色模式';
-            localStorage.setItem('darkMode', 'true');
-        } else {
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-            themeText.textContent = '暗色模式';
-            localStorage.setItem('darkMode', 'false');
+    // 按下 ESC 键关闭搜索结果
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchResult.classList.remove('active');
+            toolSearch.value = '';
+            toolSearch.blur();
         }
     });
 }); 
