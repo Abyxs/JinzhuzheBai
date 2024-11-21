@@ -1223,4 +1223,465 @@ h3,
     }
 }
 
-/* 其他样式保持不变... */ 
+/* 其他样式保持不变... */
+
+/* 工具分类样式 */
+.tool-category {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.tool-category h3 {
+    color: #2f3542;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.tool-category h3 i {
+    margin-right: 0.8rem;
+    color: #ff4757;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+/* 工具项样式 */
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #2f3542;
+    transition: all 0.3s ease;
+}
+
+.tool-item:hover {
+    transform: translateY(-3px);
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.tool-item i {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.tool-item span {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* 特定图标颜色 */
+.tool-item i.fa-file { color: #ffa502; }
+.tool-item i.fa-exchange-alt { color: #2ed573; }
+.tool-item i.fa-cloud-upload-alt { color: #1e90ff; }
+.tool-item i.fa-folder { color: #ffa502; }
+.tool-item i.fa-images { color: #20bf6b; }
+.tool-item i.fa-video { color: #ff4757; }
+.tool-item i.fa-search { color: #2f3542; }
+.tool-item i.fa-book { color: #ff6b81; }
+.tool-item i.fa-play-circle { color: #ff4757; }
+.tool-item i.fa-gamepad { color: #5352ed; }
+.tool-item i.fa-palette { color: #2ed573; }
+.tool-item i.fa-robot { color: #1e90ff; }
+.tool-item i.fa-desktop { color: #2f3542; }
+.tool-item i.fa-tools { color: #ff4757; }
+
+/* 暗色模式适配 */
+.dark-mode .tool-category {
+    background: #2d2d2d;
+}
+
+.dark-mode .tool-category h3 {
+    color: #ffffff;
+}
+
+.dark-mode .tool-item {
+    background: #363636;
+    color: #ffffff;
+}
+
+.dark-mode .tool-item:hover {
+    background: #404040;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* 响应式布局 */
+@media (max-width: 1024px) {
+    .tools-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .tool-category {
+        padding: 1rem;
+    }
+
+    .tools-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.8rem;
+    }
+
+    .tool-item {
+        padding: 1rem;
+    }
+
+    .tool-item i {
+        font-size: 1.5rem;
+    }
+
+    .tool-item span {
+        font-size: 0.8rem;
+    }
+}
+
+/* 搜索框样式 */
+.search-wrapper {
+    margin-bottom: 2rem;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.search-box i {
+    color: #2f3542;
+    margin-right: 0.8rem;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    color: #2f3542;
+}
+
+/* 搜索结果样式 */
+.search-result {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 1000;
+}
+
+.search-result.active {
+    display: block;
+}
+
+.search-result-item {
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.search-result-item:hover {
+    background: #f8f9fa;
+}
+
+.search-result-item:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.search-result-item:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* 暗色模式搜索框适配 */
+.dark-mode .search-box,
+.dark-mode .search-result {
+    background: #2d2d2d;
+}
+
+.dark-mode .search-box input {
+    background: transparent;
+    color: #ffffff;
+}
+
+.dark-mode .search-box i {
+    color: #ffffff;
+}
+
+.dark-mode .search-result-item:hover {
+    background: #363636;
+}
+
+/* 工具高亮动画 */
+@keyframes highlight {
+    0% { background: rgba(255,71,87,0.2); }
+    100% { background: #f8f9fa; }
+}
+
+.tool-item.highlight {
+    animation: highlight 2s ease;
+}
+
+.dark-mode .tool-item.highlight {
+    animation: highlightDark 2s ease;
+}
+
+@keyframes highlightDark {
+    0% { background: rgba(255,71,87,0.2); }
+    100% { background: #363636; }
+} 
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* 为了防止导航栏遮挡内容，给每个分类添加上边距 */
+.tool-category {
+    scroll-margin-top: 70px; /* 根导航栏高度调整 */
+} 
+
+/* 响应式布局调整 */
+@media screen and (max-width: 768px) {
+    /* 整体缩放 */
+    html {
+        font-size: 14px; /* 基础字体缩小 */
+    }
+
+    /* 导航栏调整 */
+    .nav-container {
+        padding: 0 0.5rem;
+    }
+
+    nav ul {
+        display: flex;
+        flex-wrap: wrap; /* 允许换行 */
+        justify-content: center;
+        gap: 0.3rem;
+        padding: 0.3rem;
+    }
+
+    nav ul li {
+        flex: 0 0 calc(20% - 0.3rem); /* 每行5个项目 */
+        padding: 0.3rem;
+    }
+
+    nav ul li a {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    nav ul li a i {
+        font-size: 1rem;
+        margin: 0 0 0.2rem 0;
+    }
+
+    /* 工具网格调整 */
+    .tools-grid {
+        grid-template-columns: repeat(4, 1fr); /* 每行4个工具 */
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .tool-item {
+        padding: 0.8rem 0.5rem;
+    }
+
+    .tool-item i {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .tool-item span {
+        font-size: 0.7rem;
+    }
+
+    /* 分类标题调整 */
+    .tool-category h3 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .tool-category {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* 更小屏幕的调整 */
+@media screen and (max-width: 480px) {
+    nav ul li {
+        flex: 0 0 calc(25% - 0.3rem); /* 每行4个项目 */
+    }
+
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr); /* 每行3个工具 */
+    }
+
+    .tool-item {
+        padding: 0.6rem 0.4rem;
+    }
+}
+
+/* 超小屏幕的调整 */
+@media screen and (max-width: 360px) {
+    nav ul li {
+        flex: 0 0 calc(33.33% - 0.3rem); /* 每行3个项目 */
+    }
+
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr); /* 每行2个工具 */
+    }
+}
+
+/* 搜索框响应式调整 */
+@media screen and (max-width: 768px) {
+    .search-box {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .search-box input {
+        font-size: 0.9rem;
+    }
+
+    .search-result-item {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+} 
+
+/* 移动端布局 */
+@media screen and (max-width: 768px) {
+    /* 确保时钟和天气板块都被隐藏 */
+    .clock-container,
+    .weather-container,
+    .header-widgets,  /* 添加父容器 */
+    #weather-widget,  /* 添加天气组件ID */
+    .weather-info {   /* 添加天气信息类 */
+        display: none !important; /* 使用!important确保隐藏 */
+    }
+
+    /* 调整标题布局 */
+    header {
+        display: block;
+        padding: 1rem;
+    }
+
+    .header-content {
+        text-align: center;
+        padding: 0.5rem;
+    }
+
+    .header-content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+/* 更小屏幕的优化 */
+@media screen and (max-width: 360px) {
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+    }
+} 
+
+/* 移动端导航栏布局 */
+@media screen and (max-width: 768px) {
+    /* 导航栏容器 */
+    nav {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        padding: 0.5rem 0;
+    }
+
+    .nav-container {
+        padding: 0;
+    }
+
+    /* 导航列表 - 两行五个布局 */
+    nav ul {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5列 */
+        grid-template-rows: repeat(2, auto);    /* 2行 */
+        gap: 0.5rem;
+        padding: 0.5rem;
+        margin: 0;
+    }
+
+    /* 导航项目样式 */
+    nav ul li {
+        padding: 0;
+    }
+
+    nav ul li a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0.4rem 0.2rem;
+        font-size: 0.8rem;
+        white-space: nowrap; /* 防止文字换行 */
+    }
+
+    nav ul li a i {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+
+    /* 确保第二行对齐 */
+    nav ul li:nth-child(n+6) {
+        margin-top: 0;
+    }
+}
+
+/* 更小屏幕的优化 */
+@media screen and (max-width: 360px) {
+    nav ul li a {
+        font-size: 0.75rem;
+    }
+
+    nav ul li a i {
+        font-size: 1.1rem;
+    }
+} 
