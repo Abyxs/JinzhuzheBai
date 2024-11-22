@@ -36,8 +36,14 @@
             </div>
         </div>
         <div class="header-content">
-            <h1>近朱者白</h1>
-            <p class="subtitle">分享生活，记录点滴</p>
+            <h1 id="mainTitle">
+                近朱者白
+                <span class="radio-icon" id="radioIcon">
+                    <i class="fas fa-compact-disc"></i>
+                    <audio id="musicPlayer" src="music/pian_ai.mp3" preload="auto" loop></audio>
+                </span>
+            </h1>
+            <div class="subtitle">分享生活，记录点滴</div>
         </div>
     </header>
 
@@ -189,6 +195,10 @@
                 <a href="https://longwosion.github.io/carplate/" class="tool-item" target="_blank">
                     <i class="fas fa-car"></i>
                     <span>车牌生成器</span>
+                </a>
+                <a href="https://www.aippt.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-file-powerpoint"></i>
+                    <span>AI生成PPT</span>
                 </a>
             </div>
         </div>
@@ -516,6 +526,10 @@
     <script src="script.js"></script>
     <script src="clock.js"></script>
     <script src="weather.js"></script>
+    <!-- 在适当位置添加开关按钮 -->
+    <div class="snow-toggle">
+        <i class="fas fa-snowflake"></i>
+    </div>
 </body>
 <!-- 在body结束标签前添加 -->
 

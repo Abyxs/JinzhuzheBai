@@ -531,7 +531,7 @@ footer {
     background: linear-gradient(to right bottom, #ffffff, #f8f9fa);
 }
 
-/* 优化工具项目的悬停效果 */
+/* 优化工效果 */
 .tool-item:hover {
     background: white;
     border-color: #ff0000;
@@ -798,7 +798,7 @@ h3,
     transition: all 0.3s ease;
 }
 
-/* 响应式设计优化 */
+/* 响应式计优化 */
 
 /* 平板设备 (768px - 1024px) */
 @media (max-width: 1024px) {
@@ -1190,7 +1190,7 @@ h3,
     padding-top: 3rem;
 }
 
-/* 响应式调整 */
+/* 响应调 */
 @media (max-width: 1024px) {
     .clock-container {
         transform: translateY(-50%) scale(0.9);
@@ -1314,7 +1314,7 @@ h3,
 }
 
 .dark-mode .tool-item:hover {
-    background: #404040;
+    background: #454950;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -1638,7 +1638,7 @@ html {
         padding: 0;
     }
 
-    /* 导航列表 - 两行五个布局 */
+    /* 导航列表 - 两五个局 */
     nav ul {
         display: grid;
         grid-template-columns: repeat(5, 1fr); /* 5列 */
@@ -1685,3 +1685,203 @@ html {
         font-size: 1.1rem;
     }
 } 
+
+/* 工具项基础样式 */
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #2f3542;
+    transition: all 0.3s ease;
+}
+
+.tool-item:hover {
+    transform: translateY(-3px);
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.tool-item i {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: #ff4757;
+}
+
+.tool-item span {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .tool-item {
+        padding: 0.8rem 0.5rem;
+    }
+
+    .tool-item i {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .tool-item span {
+        font-size: 0.8rem;
+    }
+}
+
+/* 暗色模式适配 */
+.dark-mode .tool-item {
+    background: #2d2d2d;
+    color: #ffffff;
+}
+
+.dark-mode .tool-item:hover {
+    background: #363636;
+} 
+
+/* 特别为AI PPT工具添加的样式 */
+.tool-item .fa-file-powerpoint {
+    color: #ff4757; /* 保持与其他图标一致的颜色 */
+}
+
+/* 如果需要特别的悬停效果 */
+.tool-item:hover .fa-file-powerpoint {
+    color: #ff6b81; /* 悬停时的颜色变化 */
+} 
+
+/* 标题布局 */
+.header-content {
+    text-align: center;
+}
+
+.header-content h1 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #333;  /* 默认黑色 */
+    transition: all 0.5s ease;
+}
+
+/* 音乐图标样式 */
+.radio-icon {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.radio-icon i {
+    font-size: 1.8rem;
+    color: #333;
+    transition: all 0.5s ease;
+}
+
+/* 播放时的动画效果 */
+.radio-icon.playing i {
+    animation: spin 4s linear infinite, iconColorChange 10s linear infinite;
+}
+
+/* 播放时标题文字颜色变化 */
+h1#mainTitle.playing {
+    animation: titleColorChange 2s linear infinite;
+}
+
+/* 旋转动画 */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 图标颜色动画 */
+@keyframes iconColorChange {
+    0% { color: #ff4757; }   /* 红色 */
+    25% { color: #2ecc71; }  /* 绿色 */
+    50% { color: #3498db; }  /* 蓝色 */
+    75% { color: #f1c40f; }  /* 黄色 */
+    100% { color: #ff4757; } /* 回到红色 */
+}
+
+/* 标题颜色动画 - 只在红色和白色之间切换 */
+@keyframes titleColorChange {
+    0% { color: #ff4757; }   /* 红色 */
+    50% { color: #ffffff; }  /* 白色 */
+    100% { color: #ff4757; } /* 回到红色 */
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .radio-icon {
+        margin-left: 0.8rem;
+    }
+    .radio-icon i {
+        font-size: 1.5rem;
+    }
+}
+
+/* 雪花样式 */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 1em;
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+    z-index: 1;
+    pointer-events: none;
+    animation: snowfall linear infinite;
+}
+
+/* 雪花飘落动画 */
+@keyframes snowfall {
+    0% {
+        transform: translateY(-10px) rotate(0deg) translateX(0);
+    }
+    25% {
+        transform: translateY(25vh) rotate(90deg) translateX(15px);
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) translateX(0);
+    }
+    75% {
+        transform: translateY(75vh) rotate(270deg) translateX(-15px);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg) translateX(0);
+    }
+}
+
+/* 开关按钮样式 */
+.snow-toggle {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.snow-toggle i {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.snow-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.snow-toggle.active i {
+    color: #3498db;
+}
