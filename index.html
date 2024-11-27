@@ -23,7 +23,7 @@
             </div>
             <div class="date-container">
                 <div id="gregorianDate">2024年3月21日</div>
-                <div id="lunarDate">农历十月廿一</div>
+           
                 <div id="weekDay">星期四</div>
                 <div id="digitalTime">00:00:00</div>
             </div>
@@ -126,77 +126,104 @@
             </div>
         </div>
         
-        <h2>实用工具导航</h2>
+        <div class="tools-header">
+            <button class="control-btn snow-btn" id="snowToggle">
+                <i class="fas fa-snowflake"></i>
+                <span>雪花特效</span>
+            </button>
+            <h2>实用工具导航</h2>
+            <button class="control-btn favorite-btn" id="favoriteToggle">
+                <i class="fas fa-heart"></i>
+                <span>我的收藏</span>
+            </button>
+        </div>
         
         <!-- 工具箱 -->
         <div class="tool-category" id="tools">
             <h3><i class="fas fa-tools"></i> 工具箱</h3>
             <div class="tools-grid">
-                <a href="https://www.pingti.app/" class="tool-item" target="_blank">
+                <a href="https://www.pingti.app/" class="tool-item" data-id="pingti" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-search"></i>
                     <span>平替搜索</span>
                 </a>
                 <a href="https://cdn.ipfsscan.io/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-images"></i>
                     <span>图床</span>
                 </a>
                 <a href="https://www.lanrenexcel.com" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-file-excel"></i>
                     <span>Excel公式</span>
                 </a>
                 <a href="https://acl4ssr-sub.github.io" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-random"></i>
                     <span>订阅转换</span>
                 </a>
                 <a href="https://123apps.com/cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-toolbox"></i>
                     <span>工具集合</span>
                 </a>
                 <a href="https://ziwei.pub/astrolabe" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-star"></i>
                     <span>紫薇派</span>
                 </a>
                 <a href="https://share.lanol.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-folder"></i>
                     <span>文件柜</span>
                 </a>
                 <a href="https://www.guoguo-app.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-box"></i>
                     <span>菜鸟裹裹</span>
                 </a>
                 <a href="https://www.ip138.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-network-wired"></i>
                     <span>IP地址查询</span>
                 </a>
                 <a href="https://instantdomainsearch.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-globe"></i>
                     <span>域名查询</span>
                 </a>
                 <a href="https://pkeytool.com/ShareKeys" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fab fa-microsoft"></i>
                     <span>微软产品激活</span>
                 </a>
                 <a href="https://zh.numberempire.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-calculator"></i>
                     <span>数学工具箱</span>
                 </a>
                 <a href="https://appstore.bilin.eu.org" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fab fa-apple"></i>
                     <span>IOS版本号查阅</span>
                 </a>
                 <a href="https://drop.space/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-cloud-upload-alt"></i>
                     <span>文件传输托管</span>
                 </a>
                 <a href="https://1000tool.com/video/transcode/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-video"></i>
                     <span>视频转码</span>
                 </a>
                 <a href="https://longwosion.github.io/carplate/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-car"></i>
                     <span>车牌生成器</span>
                 </a>
                 <a href="https://www.aippt.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-file-powerpoint"></i>
                     <span>AI生成PPT</span>
                 </a>
@@ -208,70 +235,87 @@
             <h3><i class="fas fa-building"></i> 便民官网</h3>
             <div class="tools-grid">
                 <a href="http://zxgk.court.gov.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-gavel"></i>
                     <span>执行信息公开网</span>
                 </a>
                 <a href="https://www.bmcx.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-search"></i>
                     <span>便民查询</span>
                 </a>
                 <a href="https://trains.ctrip.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-train"></i>
                     <span>火车票预订</span>
                 </a>
                 <a href="https://www.kuaidi100.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-truck"></i>
                     <span>快递100</span>
                 </a>
                 <a href="https://www.12306.cn/index/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-train"></i>
                     <span>中国铁路12306</span>
                 </a>
                 <a href="https://ipcrs.pbccrc.org.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-credit-card"></i>
                     <span>个人信用信息</span>
                 </a>
                 <a href="https://www.gsxt.gov.cn/index.html" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-building"></i>
                     <span>企业信用公示</span>
                 </a>
                 <a href="https://www.tianyancha.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-search-dollar"></i>
                     <span>天眼查</span>
                 </a>
                 <a href="https://www.12315.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-headset"></i>
                     <span>12315平台</span>
                 </a>
                 <a href="https://ts.isc.org.cn/#/home" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-comment-alt"></i>
                     <span>网络投诉平台</span>
                 </a>
                 <a href="https://sswz.spb.gov.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-envelope"></i>
                     <span>邮政申诉网站</span>
                 </a>
                 <a href="https://beian.miit.gov.cn/#/Integrated/index" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-shield-alt"></i>
                     <span>ICP备案系统</span>
                 </a>
                 <a href="http://hao.datatong.com/#" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-database"></i>
                     <span>大数据导航</span>
                 </a>
                 <a href="https://www.ipip.net/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-network-wired"></i>
                     <span>IPIP NET</span>
                 </a>
                 <a href="https://whoer.net/zh" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-globe"></i>
                     <span>IP和DNS检查</span>
                 </a>
                 <a href="https://iphub.info/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-shield-alt"></i>
                     <span>代理VPN检测</span>
                 </a>
                 <a href="https://www.miit.gov.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-landmark"></i>
                     <span>工信部</span>
                 </a>
@@ -283,38 +327,47 @@
             <h3><i class="fas fa-book"></i> 图书馆</h3>
             <div class="tools-grid">
                 <a href="https://www.owlook.com.cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-book-reader"></i>
                     <span>零点看书</span>
                 </a>
                 <a href="https://www.8bei8.com/index_mobile.html" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-book-open"></i>
                     <span>太极图书馆</span>
                 </a>
                 <a href="http://b.mtw.so/6avGMx" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-newspaper"></i>
                     <span>杂志</span>
                 </a>
                 <a href="https://www.fx361.com" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-newspaper"></i>
                     <span>过期杂志</span>
                 </a>
                 <a href="https://www.1kkk.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-book-reader"></i>
                     <span>漫画人1</span>
                 </a>
                 <a href="https://www.dm5.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-book-reader"></i>
                     <span>漫画人2</span>
                 </a>
                 <a href="https://baozimh.org/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-book-reader"></i>
                     <span>包子漫画</span>
                 </a>
                 <a href="https://ikmmh.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-book-reader"></i>
                     <span>破洞漫画</span>
                 </a>
                 <a href="https://manmanapp.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-book-reader"></i>
                     <span>漫漫漫画</span>
                 </a>
@@ -326,22 +379,27 @@
             <h3><i class="fas fa-film"></i> 音影娱乐</h3>
             <div class="tools-grid">
                 <a href="https://cupfox.love/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-coffee"></i>
                     <span>茶壶杯</span>
                 </a>
                 <a href="https://www.imdb.com/title/tt15435876/?ref_=hm_tpten_tt_i_1" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-star"></i>
                     <span>影评</span>
                 </a>
                 <a href="https://v.warhut.cn" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-film"></i>
                     <span>电影站点1</span>
                 </a>
                 <a href="https://www.duse1.com" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-film"></i>
                     <span>电影站点2</span>
                 </a>
                 <a href="https://aliso.cc/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-search"></i>
                     <span>阿里搜</span>
                 </a>
@@ -353,38 +411,47 @@
             <h3><i class="fas fa-gamepad"></i> 游戏厅</h3>
             <div class="tools-grid">
                 <a href="https://triplea-game.org" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-chess"></i>
                     <span>大战略游戏</span>
                 </a>
                 <a href="https://www.zzzzz688.com" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-gamepad"></i>
-                    <span>游戏天堂</span>
+                    <span>游戏天</span>
                 </a>
                 <a href="https://xyg688.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-ghost"></i>
                     <span>小妖怪</span>
                 </a>
                 <a href="https://steamzg.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fab fa-steam"></i>
                     <span>小叽资源</span>
                 </a>
                 <a href="https://www.gamer520.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-gamepad"></i>
                     <span>Game520</span>
                 </a>
                 <a href="https://www.gamer520.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-cube"></i>
                     <span>多元化资源平台</span>
                 </a>
                 <a href="https://www.2cyshare.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-share-alt"></i>
                     <span>二次元共享站</span>
                 </a>
                 <a href="https://www.xgamefan.com/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-gamepad"></i>
                     <span>X游戏</span>
                 </a>
                 <a href="https://game.hullqin.cn" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-dice"></i>
                     <span>桌游合集</span>
                 </a>
@@ -396,6 +463,7 @@
             <h3><i class="fas fa-palette"></i> 设计相关</h3>
             <div class="tools-grid">
                 <a href="https://colorhunt.co/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-paint-brush"></i>
                     <span>调色板</span>
                 </a>
@@ -407,14 +475,17 @@
             <h3><i class="fas fa-robot"></i> AI工具</h3>
             <div class="tools-grid">
                 <a href="https://felo.ai/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-brain"></i>
                     <span>Felo</span>
                 </a>
                 <a href="https://glarity.app/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-lightbulb"></i>
                     <span>Glarity</span>
                 </a>
                 <a href="https://app.qrcode-ai.com" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-qrcode"></i>
                     <span>艺术二维码</span>
                 </a>
@@ -426,26 +497,32 @@
             <h3><i class="fas fa-desktop"></i> 软件集合</h3>
             <div class="tools-grid">
                 <a href="https://www.52pojie.cn/thread-1853487-1-1.html" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-mouse-pointer"></i>
                     <span>鼠标连点器</span>
                 </a>
                 <a href="https://pan.baidu.com/s/1dWjJRfhAIzirR2kMfk7v6Q?pwd=uzno" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-file-pdf"></i>
                     <span>PDF处理工具</span>
                 </a>
                 <a href="https://pan.baidu.com/s/1Q-SOAW1Yic6YqACfF6eWCw?pwd=dx6w" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-tools"></i>
                     <span>电脑常用修复工具</span>
                 </a>
                 <a href="https://file-converter.org/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-exchange-alt"></i>
                     <span>文件格式转换器</span>
                 </a>
                 <a href="https://github.com/LC044/WeChatMsg/releases" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fab fa-weixin"></i>
                     <span>微信记录备份器</span>
                 </a>
                 <a href="http://everauto.net/cn/" class="tool-item" target="_blank">
+                    <i class="fas fa-heart favorite-heart"></i>
                     <i class="fas fa-keyboard"></i>
                     <span>按键精灵</span>
                 </a>
@@ -526,10 +603,6 @@
     <script src="script.js"></script>
     <script src="clock.js"></script>
     <script src="weather.js"></script>
-    <!-- 在适当位置添加开关按钮 -->
-    <div class="snow-toggle">
-        <i class="fas fa-snowflake"></i>
-    </div>
 </body>
 <!-- 在body结束标签前添加 -->
 

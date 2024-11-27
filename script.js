@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 搜索相关代码
     const toolSearch = document.getElementById('toolSearch');
     const searchResult = document.getElementById('searchResult');
     
@@ -77,34 +78,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 等待DOM加载完成
+    // 雪花相关代码
     let snowInterval;
-    let isSnowing = false;
+    let isSnowing = true;
 
-    // 创建雪花函数
     function createSnowflake() {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
         snowflake.innerHTML = '❅';
         
-        // 随机位置和大小
         snowflake.style.left = Math.random() * 100 + 'vw';
         snowflake.style.fontSize = (Math.random() * 15 + 8) + 'px';
         snowflake.style.opacity = Math.random() * 0.8 + 0.2;
         
-        // 随机动画持续时间
         const duration = Math.random() * 5 + 8;
         snowflake.style.animationDuration = duration + 's';
         
         document.body.appendChild(snowflake);
         
-        // 动画结束后移除
         setTimeout(() => {
             snowflake.remove();
         }, duration * 1000);
     }
 
-    // 开始下雪
     function startSnowfall() {
         if (!isSnowing) {
             isSnowing = true;
@@ -113,21 +109,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 停止下雪
     function stopSnowfall() {
         if (isSnowing) {
             isSnowing = false;
             clearInterval(snowInterval);
             document.querySelector('.snow-toggle').classList.remove('active');
-            // 清除现有的雪花
             document.querySelectorAll('.snowflake').forEach(snowflake => {
                 snowflake.remove();
             });
         }
     }
 
-    // 绑定点击事件
-    const snowToggle = document.querySelector('.snow-toggle');
+    const snowToggle = document.getElementById('snowToggle');
     if (snowToggle) {
         snowToggle.addEventListener('click', function() {
             if (isSnowing) {
@@ -138,74 +131,190 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 页面加载时自动开始下雪
-    startSnowfall();
-});
+    // 页面加载时自动开启雪花效果
+    document.addEventListener('DOMContentLoaded', function() {
+        startSnowfall();
+        document.querySelector('#snowToggle').classList.add('active');
+    });
 
-// 音乐播放器功能
-class MusicPlayer {
-    constructor() {
-        this.audioPlayer = document.getElementById('musicPlayer');
-        this.radioIcon = document.getElementById('radioIcon');
-        this.isPlaying = false;
-        this.setupEventListeners();
-        
-        // 添加音频加载状态检查
-        this.audioPlayer.addEventListener('error', (e) => {
-            console.error('Error loading audio:', e);
-        });
-        
-        // 添加音频就绪状态检查
-        this.audioPlayer.addEventListener('canplay', () => {
-            console.log('Audio is ready to play');
-        });
-    }
+    // 收藏相关代码
+    const favoriteHearts = document.querySelectorAll('.tool-item .favorite-heart');
+    const favoriteToggle = document.getElementById('favoriteToggle');
+    let favoriteList = null;
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    setupEventListeners() {
-        this.radioIcon.addEventListener('click', async () => {
-            try {
-                await this.togglePlay();
-            } catch (error) {
-                console.error('Error toggling play state:', error);
+    function updateFavoriteStatus() {
+        favoriteHearts.forEach(heart => {
+            const toolItem = heart.closest('.tool-item');
+            const toolId = toolItem.getAttribute('data-id');
+            heart.classList.remove('active'); // 先移除所有激活状态
+            if (favorites.includes(toolId)) {
+                heart.classList.add('active');
             }
         });
     }
 
-    async togglePlay() {
-        if (this.isPlaying) {
-            await this.pause();
-        } else {
-            await this.play();
+    function showFavorites() {
+        favoriteList = document.createElement('div');
+        favoriteList.className = 'favorite-list modal';
+        
+        // 添加标题和关闭按钮
+        const header = document.createElement('div');
+        header.className = 'favorite-header';
+        header.innerHTML = `
+            <h3>我的收藏</h3>
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+        `;
+        favoriteList.appendChild(header);
+        
+        // 添加收藏内容容器
+        const content = document.createElement('div');
+        content.className = 'favorite-content';
+        favoriteList.appendChild(content);
+        
+        updateFavoritesList();
+        document.body.appendChild(favoriteList);
+
+        // 添加关闭按钮事件
+        const closeBtn = favoriteList.querySelector('.close-btn');
+        closeBtn.addEventListener('click', hideFavorites);
+    }
+
+    function updateFavoritesList() {
+        const content = favoriteList.querySelector('.favorite-content');
+        content.innerHTML = '';
+        
+        if (favorites.length === 0) {
+            const emptyMessage = document.createElement('div');
+            emptyMessage.className = 'empty-favorites';
+            emptyMessage.textContent = '还没有收藏任何工具';
+            content.appendChild(emptyMessage);
+            return;
+        }
+        
+        favorites.forEach(id => {
+            const originalTool = document.querySelector(`.tool-item[data-id="${id}"]`);
+            if (originalTool) {
+                const toolItem = document.createElement('div');
+                toolItem.className = 'favorite-item';
+                toolItem.innerHTML = `
+                    <i class="${originalTool.querySelector('i:not(.favorite-heart)').className}"></i>
+                    <span>${originalTool.querySelector('span').textContent}</span>
+                `;
+                
+                toolItem.addEventListener('click', () => {
+                    window.open(originalTool.href, '_blank');
+                });
+                
+                content.appendChild(toolItem);
+            }
+        });
+    }
+
+    function hideFavorites() {
+        if (favoriteList) {
+            favoriteList.remove();
+            favoriteList = null;
         }
     }
 
-    async play() {
-        try {
-            if (this.audioPlayer.readyState < 2) {
-                await new Promise((resolve) => {
-                    this.audioPlayer.addEventListener('canplay', resolve, { once: true });
-                });
+    // 初始化收藏状态
+    favoriteHearts.forEach((heart, index) => {
+        const toolItem = heart.closest('.tool-item');
+        if (!toolItem.hasAttribute('data-id')) {
+            toolItem.setAttribute('data-id', `tool-${index}`);
+        }
+        
+        // 检查是否在收藏列表中，如果是则添加激活状态
+        const toolId = toolItem.getAttribute('data-id');
+        if (favorites.includes(toolId)) {
+            heart.classList.add('active');
+        }
+    });
+
+    // 收藏按钮点击事件
+    favoriteToggle.addEventListener('click', function() {
+        if (!favoriteList) {
+            showFavorites();
+        } else {
+            hideFavorites();
+        }
+    });
+
+    // 工具卡片收藏点击事件
+    favoriteHearts.forEach(heart => {
+        heart.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            const toolItem = this.closest('.tool-item');
+            const toolId = toolItem.getAttribute('data-id');
+            
+            if (this.classList.contains('active')) {
+                this.classList.remove('active');
+                favorites = favorites.filter(id => id !== toolId);
+            } else {
+                this.classList.add('active');
+                favorites.push(toolId);
             }
             
-            const playPromise = this.audioPlayer.play();
-            if (playPromise !== undefined) {
-                await playPromise;
-                this.isPlaying = true;
-                this.radioIcon.classList.add('playing');
-                document.getElementById('mainTitle').classList.add('playing');
-                console.log('Audio is now playing');
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            if (favoriteList) {
+                updateFavoritesList();
             }
-        } catch (error) {
-            console.error('Error playing audio:', error);
+        });
+    });
+
+    // 点击其他地方关闭收藏列表
+    document.addEventListener('click', function(e) {
+        if (favoriteList && !favoriteList.contains(e.target) && !favoriteToggle.contains(e.target)) {
+            hideFavorites();
         }
+    });
+
+    // 添加滚动隐藏功能
+    let lastScrollTop = 0;
+    const sideButtons = document.querySelector('.side-buttons');
+    
+    function handleScroll() {
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // 判断滚动方向
+        if (currentScrollTop > lastScrollTop) {
+            // 向下滚动
+            sideButtons.classList.add('hide');
+        } else {
+            // 向上滚动
+            sideButtons.classList.remove('hide');
+        }
+        
+        lastScrollTop = currentScrollTop;
     }
 
-    async pause() {
-        this.audioPlayer.pause();
+    // 添加滚动事件监听
+    window.addEventListener('scroll', handleScroll);
+});
+
+class MusicPlayer {
+    constructor() {
+        this.player = document.getElementById('musicPlayer');
+        this.icon = document.getElementById('radioIcon');
         this.isPlaying = false;
-        this.radioIcon.classList.remove('playing');
-        document.getElementById('mainTitle').classList.remove('playing');
-        console.log('Audio is now paused');
+
+        // 添加点击事件监听
+        this.icon.addEventListener('click', () => this.togglePlay());
+    }
+
+    togglePlay() {
+        if (this.isPlaying) {
+            this.player.pause();
+            this.icon.classList.remove('playing');
+        } else {
+            this.player.play();
+            this.icon.classList.add('playing');
+        }
+        this.isPlaying = !this.isPlaying;
     }
 }
 
@@ -213,58 +322,3 @@ class MusicPlayer {
 document.addEventListener('DOMContentLoaded', () => {
     new MusicPlayer();
 });
-
-let snowInterval;
-let isSnowing = false;
-
-function createSnowflake() {
-    const snowflake = document.createElement('div');
-    snowflake.classList.add('snowflake');
-    snowflake.innerHTML = '❅';
-    
-    snowflake.style.left = Math.random() * 100 + 'vw';
-    snowflake.style.fontSize = (Math.random() * 15 + 8) + 'px';
-    snowflake.style.opacity = Math.random() * 0.8 + 0.2;
-    
-    const duration = Math.random() * 5 + 8;
-    snowflake.style.animationDuration = duration + 's';
-    
-    document.body.appendChild(snowflake);
-    
-    setTimeout(() => {
-        snowflake.remove();
-    }, duration * 1000);
-}
-
-function startSnowfall() {
-    if (!isSnowing) {
-        isSnowing = true;
-        snowInterval = setInterval(createSnowflake, 300);
-        document.querySelector('.snow-toggle').classList.add('active');
-    }
-}
-
-function stopSnowfall() {
-    if (isSnowing) {
-        isSnowing = false;
-        clearInterval(snowInterval);
-        document.querySelector('.snow-toggle').classList.remove('active');
-        // 清除现有的雪花
-        const snowflakes = document.querySelectorAll('.snowflake');
-        snowflakes.forEach(snowflake => {
-            snowflake.remove();
-        });
-    }
-}
-
-// 添加开关控制
-document.querySelector('.snow-toggle').addEventListener('click', function() {
-    if (isSnowing) {
-        stopSnowfall();
-    } else {
-        startSnowfall();
-    }
-});
-
-// 页面加载时默认不开启下雪
-// window.addEventListener('load', startSnowfall); 
