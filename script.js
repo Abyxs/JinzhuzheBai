@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 雪花相关代码
+    // 雪花相关变量
     let snowInterval;
-    let isSnowing = true;
+    let isSnowing = true; // 默认开启
 
     function createSnowflake() {
         const snowflake = document.createElement('div');
@@ -102,39 +102,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startSnowfall() {
-        if (!isSnowing) {
+        if (!snowInterval) {  // 修改判断条件
             isSnowing = true;
             snowInterval = setInterval(createSnowflake, 300);
-            document.querySelector('.snow-toggle').classList.add('active');
+            document.getElementById('snowToggle').classList.add('active');
         }
     }
 
     function stopSnowfall() {
-        if (isSnowing) {
+        if (snowInterval) {  // 修改判断条件
             isSnowing = false;
             clearInterval(snowInterval);
-            document.querySelector('.snow-toggle').classList.remove('active');
+            snowInterval = null;  // 清除interval引用
+            document.getElementById('snowToggle').classList.remove('active');
             document.querySelectorAll('.snowflake').forEach(snowflake => {
                 snowflake.remove();
             });
         }
     }
 
-    const snowToggle = document.getElementById('snowToggle');
-    if (snowToggle) {
-        snowToggle.addEventListener('click', function() {
-            if (isSnowing) {
-                stopSnowfall();
-            } else {
-                startSnowfall();
-            }
-        });
-    }
-
-    // 页面加载时自动开启雪花效果
-    document.addEventListener('DOMContentLoaded', function() {
+    // 页面加载完成后立即启动雪花效果
+    window.addEventListener('load', function() {
         startSnowfall();
-        document.querySelector('#snowToggle').classList.add('active');
+    });
+
+    // 雪花开关按钮点击事件
+    document.getElementById('snowToggle').addEventListener('click', function() {
+        if (isSnowing) {
+            stopSnowfall();
+        } else {
+            startSnowfall();
+        }
     });
 
     // 收藏相关代码

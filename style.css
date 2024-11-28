@@ -545,7 +545,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* 确保footer滚动���足够的空间 */
+/* 确保footer滚动足够的空间 */
 footer {
     scroll-margin-top: 2rem; /* 确保滚动到footer时有适当的上边距 */
 }
@@ -2460,3 +2460,16 @@ h1#mainTitle.playing {
 .dark-mode .favorite-btn i {
     color: #ff4757;
 }
+
+/* 添加新的图标颜色 */
+.tool-item i.fa-file-pdf { color: #e74c3c; }
+.tool-item i.fa-music { color: #3498db; }
+.tool-item i.fa-chart-line { color: #2ecc71; }
+.tool-item i.fa-compress { color: #9b59b6; }
+.tool-item i.fa-image { color: #1abc9c; }
+.tool-item i.fa-keyboard { color: #e67e22; }
+.tool-item i.fa-print { color: #c0392b; }
+.tool-item i.fa-magic { color: #8e44ad; }
+.tool-item i.fa-robot { color: #2980b9; }
+.tool-item i.fa-book { color: #f39c12; }
+.tool-item i.fa-apple { color: #7f8c8d; }
