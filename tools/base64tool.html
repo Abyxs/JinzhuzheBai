@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件转 Base64 工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background-color: #f4f4f9; 
+            color: #333;
+            height: 100vh;
+        }
+        
+        .container { 
+            max-width: 800px; 
+            height: calc(100vh - 40px);
+            margin: 0 auto; 
+            background-color: #fff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h1 { 
+            color: #4a90e2;
+            margin-bottom: 20px;
+            flex: 0 0 auto;
+        }
+        
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            min-height: 0;
+        }
+        
+        .input-section, .output-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .file-container {
+            flex: 1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #e9ecef;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        input[type="file"] { 
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        textarea {
+            flex: 1;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: transparent;
+            resize: none;
+            font-family: monospace;
+        }
+        
+        .output { 
+            flex: 1;
+            word-break: break-all; 
+            background-color: #e9ecef; 
+            padding: 10px; 
+            border-radius: 5px;
+            overflow-y: auto;
+            width: 100%;
+            text-align: left;
+            max-height: 200px;
+        }
+        
+        .button-group {
+            margin-top: 10px;
+            flex: 0 0 auto;
+        }
+        
+        .middle-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        button { 
+            margin: 5px; 
+            padding: 10px 20px; 
+            background-color: #4a90e2; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer;
+        }
+        
+        button:hover { 
+            background-color: #357ab8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>文件转 Base64 工具</h1>
+        <div class="content-area">
+            <div class="input-section">
+                <div class="file-container">
+                    <input type="file" id="fileInput" accept="image/*,audio/*,video/*">
+                    <textarea id="textInput" placeholder="或者粘贴 Base64 编码文本到这里。可编码图片，音频，视频，时间取决于文件大小--近朱者白"></textarea>
+                </div>
+            </div>
+            <div class="middle-buttons">
+                <button onclick="encodeFile()">编码</button>
+                <button onclick="decodeBase64()">解码</button>
+            </div>
+            <div class="output-section">
+                <div class="output" id="output">编码/解码后内容内容</div>
+            </div>
+        </div>
+        <div class="button-group">
+            <button onclick="saveText()">保存编码文本</button>
+            <button onclick="saveContent()">保存解码内容</button>
+        </div>
+    </div>
+    <script>
+        let selectedFile = null;
+    
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            selectedFile = e.target.files[0];
+            if (selectedFile && selectedFile.name.toLowerCase().endsWith('.txt')) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('textInput').value = event.target.result;
+                };
+                reader.onerror = function(event) {
+                    console.error("文件读取错误:", event.target.error);
+                    alert("文件读取失败");
+                };
+                reader.readAsText(selectedFile);
+            }
+        });
+    
+        function encodeFile() {
+            if (selectedFile && !selectedFile.name.toLowerCase().endsWith('.txt')) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const base64String = event.target.result;
+                    document.getElementById('output').innerText = base64String;
+                };
+                reader.readAsDataURL(selectedFile);
+            } else {
+                const textInput = document.getElementById('textInput').value;
+                if (textInput) {
+                    document.getElementById('output').innerText = textInput;
+                } else {
+                    alert('请先选择文件或输入内容');
+                }
+            }
+        }
+    
+        function decodeBase64() {
+            const textInput = document.getElementById('textInput').value;
+            let base64String = textInput || document.getElementById('output').innerText;
+    
+            try {
+                // 检查是否是有效的 Base64 数据
+                if (!base64String) {
+                    throw new Error('请先输入 Base64 编码内容');
+                }
+    
+                // 检查数据类型
+                let mimeType = '';
+                if (base64String.startsWith('data:')) {
+                    mimeType = base64String.split(',')[0].split(':')[1].split(';')[0];
+                } else {
+                    // 如果没有 MIME 类型，默认作为图片处理
+                    base64String = 'data:image/jpeg;base64,' + base64String;
+                    mimeType = 'image/jpeg';
+                }
+    
+                const output = document.getElementById('output');
+                output.innerHTML = '';
+    
+                // 根据 MIME 类型创建对应的元素
+                if (mimeType.startsWith('image/')) {
+                    const img = new Image();
+                    img.style.maxWidth = '100%';
+                    img.src = base64String;
+                    output.appendChild(img);
+                } else if (mimeType.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.controls = true;
+                    video.style.maxWidth = '100%';
+                    video.src = base64String;
+                    output.appendChild(video);
+                } else if (mimeType.startsWith('audio/')) {
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.style.width = '100%';
+                    audio.src = base64String;
+                    output.appendChild(audio);
+                } else {
+                    throw new Error('不支持的文件类型：' + mimeType);
+                }
+            } catch (error) {
+                alert('解码失败：' + error.message);
+                return;
+            }
+        }
+    
+        function saveText() {
+            const text = document.getElementById('output').innerText;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'base64.txt';
+            link.click();
+        }
+    
+        function saveContent() {
+            const output = document.getElementById('output').firstChild;
+            if (output && (output.tagName === 'IMG' || output.tagName === 'VIDEO' || output.tagName === 'AUDIO')) {
+                const link = document.createElement('a');
+                link.href = output.src;
+                link.download = 'decoded_content';
+                link.click();
+            } else {
+                alert('没有可保存的解码内容');
+            }
+        }
+    </script>
+  
+</body>
+</html>
