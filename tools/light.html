@@ -497,62 +497,36 @@
         }
         
         .gradient-dialog {
-            height: 25%; /* 将高度设置为与主页弹窗一致 */
             display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-top-left-radius: 16px;
-            border-top-right-radius: 16px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
-            z-index: 1002;
-            backdrop-filter: blur(10px);
-            animation: slideUp 0.3s ease;
         }
         
         .gradient-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: none;
         }
         
         .gradient-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
+            display: none;
         }
         
-        .gradient-option:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .gradient-dialog .header button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
+        .export-button {
+            background-color: #4CAF50; /* 绿色背景 */
             border: none;
-            font-size: 24px;
-            color: #999;
+            color: white;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
             cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            border-radius: 12px;
         }
 
-        .gradient-dialog .header button:hover {
-            background: #f5f5f5;
-            color: #666;
+        .export-button:hover {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #4CAF50;
         }
     </style>
 </head>
@@ -576,8 +550,7 @@
             <button onclick="showMixerDialog()">调色盘</button>
             <button onclick="showColorPicker()">选择颜色</button>
             <button onclick="showSaveDialog()">保存色卡</button>
-            <button onclick="showExportDialog()">导出色卡</button>
-            <button onclick="showGradientDialog()">渐变</button>
+            <button class="export-button" onclick="showExportDialog()">导出色卡</button>
         </div>
     </div>
 
@@ -607,11 +580,10 @@
             </select>
         </div>
         
-        <div class="export-params-container" style="margin-top: 15px;">
-            <label style="display: block; margin-bottom: 10px;">是否在图片中显示调色参数？</label>
-            <div style="display: flex; gap: 10px;">
-                <button onclick="exportCurrentColor(true)" class="primary">是</button>
-                <button onclick="exportCurrentColor(false)">否</button>
+        <div class="export-params-container" style="margin-top: 15px; text-align: center;">
+            <div style="display: inline-block; gap: 10px;">
+                <button class="export-button" onclick="exportCurrentColor(true)">带参数导出</button>
+                <button class="export-button" onclick="exportCurrentColor(false)">无参数导出</button>
             </div>
         </div>
     </div>
@@ -674,30 +646,6 @@
             <div class="buttons" style="margin-top: 15px;">
                 <button onclick="closeColorPickerDialog()">取消</button>
                 <button class="primary" onclick="confirmColor()">确定</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="gradientDialog" class="gradient-dialog">
-        <div class="header">
-            <span>选择渐变样式</span>
-            <button onclick="closeGradientDialog()">×</button>
-        </div>
-        <div style="padding: 15px;">
-            <select id="gradientSelect" style="width: 100%; padding: 8px;">
-                <option value="linear-gradient(to right, #ff7e5f, #feb47b)">左右渐变</option>
-                <option value="linear-gradient(to bottom, #6a11cb, #2575fc)">上下渐变</option>
-                <option value="radial-gradient(circle, #00c6ff, #0072ff)">旋转渐变</option>
-            </select>
-            <div class="color-boxes" style="display: flex; justify-content: space-between; margin-top: 15px;">
-                <input type="color" class="color-input" value="#ffffff">
-                <input type="color" class="color-input" value="#ffffff">
-                <input type="color" class="color-input" value="#ffffff">
-                <input type="color" class="color-input" value="#ffffff">
-                <input type="color" class="color-input" value="#ffffff">
-            </div>
-            <div class="buttons" style="margin-top: 15px;">
-                <button onclick="applyGradient()">应用渐变</button>
             </div>
         </div>
     </div>
@@ -842,7 +790,7 @@
 
         // 修改点击事件监器，让点击空白处也能显示调色器
         const isAnyDialogOpen = () => {
-            const dialogs = document.querySelectorAll('.color-dialog, .gradient-dialog, .mixer-dialog');
+            const dialogs = document.querySelectorAll('.color-dialog, .mixer-dialog');
             return Array.from(dialogs).some(dialog => dialog.style.display === 'block');
         };
 
@@ -943,9 +891,9 @@
             canvas.width = width;
             canvas.height = height;
             
-            // 使用当前页面的背景色（包括渐变）
-            const currentBackground = document.body.style.background;
-            ctx.fillStyle = currentBackground;
+            // 使用当前页面的背景色
+            const currentColor = document.body.style.backgroundColor || '#ffffff';
+            ctx.fillStyle = currentColor;
             ctx.fillRect(0, 0, width, height);
             
             if (includeParams) {
@@ -984,31 +932,11 @@
                         ctx.shadowBlur = 4;
                         ctx.fillStyle = 'white';
                         ctx.fillText(
-                            `调色盘${index + 1} (${colorIntensities[index]}%)`, 
+                            `调色盘${index + 1} RGB(${hexToRgb(color).r}, ${hexToRgb(color).g}, ${hexToRgb(color).b}) (${colorIntensities[index]}%)`, 
                             padding + colorBoxSize + padding/2, 
                             currentY + colorBoxSize*0.7
                         );
                     }
-                });
-                
-                // 绘制渐变颜色示例图和RGB值
-                const colorInputs = document.querySelectorAll('.color-input');
-                const colors = Array.from(colorInputs).map(input => input.value).filter(color => color !== '#ffffff');
-                colors.forEach((color, index) => {
-                    currentY -= lineHeight;
-                    const rgb = hexToRgb(color);
-                    // 绘制色块
-                    ctx.shadowBlur = 0;
-                    ctx.fillStyle = color;
-                    ctx.fillRect(padding, currentY, colorBoxSize, colorBoxSize);
-                    // 绘制文字
-                    ctx.shadowBlur = 4;
-                    ctx.fillStyle = 'white';
-                    ctx.fillText(
-                        `颜色${index + 1}: RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`, 
-                        padding + colorBoxSize + padding/2, 
-                        currentY + colorBoxSize*0.7
-                    );
                 });
             }
             
@@ -1086,8 +1014,6 @@
                 selectedColors[index] = newColor;
                 palette.style.backgroundColor = newColor;
                 palette.style.borderStyle = 'solid';
-                
-                // 更新混合颜色
                 updateMixedColor();
             });
 
@@ -1097,10 +1023,7 @@
                 selectedColors[index] = finalColor;
                 palette.style.backgroundColor = finalColor;
                 palette.style.borderStyle = 'solid';
-                
-                // 更新混合颜色
                 updateMixedColor();
-                
                 input.remove();
             });
             
@@ -1291,181 +1214,21 @@
         document.addEventListener('click', function(e) {
             const colorDialog = document.getElementById('colorDialog');
             const mixerDialog = document.getElementById('mixerDialog');
-            const exportDialog = document.getElementById('exportDialog');
-            const saveColorDialog = document.getElementById('saveColorDialog');
-            const colorPickerDialog = document.getElementById('colorPickerDialog');
-            const gradientDialog = document.getElementById('gradientDialog');
 
             // 检查点击是否在弹窗外部
-            if (!e.target.closest('.color-dialog') && !e.target.closest('.mixer-dialog') && !e.target.closest('.gradient-dialog')) {
+            if (!e.target.closest('.color-dialog') && !e.target.closest('.mixer-dialog')) {
                 // 关闭所有弹窗
                 colorDialog.style.display = 'none';
                 mixerDialog.style.display = 'none';
-                exportDialog.style.display = 'none';
-                saveColorDialog.style.display = 'none';
-                colorPickerDialog.style.display = 'none';
-                gradientDialog.style.display = 'none';
             }
         });
 
         // 修改所有弹窗的点击事件，阻止事件冒泡
-        document.querySelectorAll('.color-dialog, .mixer-dialog, .gradient-dialog').forEach(dialog => {
+        document.querySelectorAll('.color-dialog, .mixer-dialog').forEach(dialog => {
             dialog.addEventListener('click', function(e) {
                 e.stopPropagation();
             });
         });
-
-        // 添加渐变相关函数
-        function showGradientDialog() {
-            document.getElementById('gradientDialog').style.display = 'block';
-            closeDialog(); // 关闭主页弹窗
-        }
-
-        function closeGradientDialog() {
-            document.getElementById('gradientDialog').style.display = 'none';
-        }
-
-        function applyGradient() {
-            const gradientSelect = document.getElementById('gradientSelect');
-            const gradientType = gradientSelect.options[gradientSelect.selectedIndex].text;
-            let customGradient;
-
-            const colorInputs = document.querySelectorAll('.color-input');
-            const colors = Array.from(colorInputs).map(input => input.value).filter(color => color !== '#ffffff');
-
-            if (colors.length === 0) {
-                console.error('No valid colors selected for gradient.');
-                return;
-            }
-
-            console.log('Selected colors:', colors); // Debugging line
-
-            if (gradientType.includes('左右渐变')) {
-                customGradient = `linear-gradient(to right, ${colors.join(', ')})`;
-            } else if (gradientType.includes('上下渐变')) {
-                customGradient = `linear-gradient(to bottom, ${colors.join(', ')})`;
-            } else if (gradientType.includes('旋转渐变')) {
-                customGradient = `radial-gradient(circle, ${colors.join(', ')})`;
-            } else {
-                customGradient = gradientStyle;
-            }
-            console.log('Applying gradient:', customGradient); // Debugging line
-            document.body.style.background = customGradient;
-            closeGradientDialog();
-            closeDialog(); // 关闭主页弹窗
-        }
-        
-        // 在导出之前，将渐变颜色应用到画布上，以确保渐变正确地绘制在画布上
-        function exportCurrentColor(includeParams = false) {
-            // 在导出之前更新 colorIntensities
-            colorIntensities = selectedColors.map((color, index) => {
-                const slider = document.querySelector(`.palette-container[data-index="${index}"] .intensity-slider`);
-                return color ? parseInt(slider.value) : 0;
-            });
-
-            const sizeSelect = document.getElementById('exportSize');
-            const [width, height] = sizeSelect.value.split('x').map(Number);
-            
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = width;
-            canvas.height = height;
-            
-            // 使用渐变色填充画布
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            const gradientType = document.getElementById('gradientSelect').options[document.getElementById('gradientSelect').selectedIndex].text;
-            const colorInputs = document.querySelectorAll('.color-input');
-            const colors = Array.from(colorInputs).map(input => input.value).filter(color => color !== '#ffffff');
-            if (gradientType.includes('左右渐变')) {
-                gradient.addColorStop(0, colors[0]);
-                gradient.addColorStop(1, colors[1]);
-            } else if (gradientType.includes('上下渐变')) {
-                gradient.addColorStop(0, colors[0]);
-                gradient.addColorStop(1, colors[1]);
-            } else if (gradientType.includes('旋转渐变')) {
-                gradient.addColorStop(0, colors[0]);
-                gradient.addColorStop(1, colors[1]);
-            }
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, width, height);
-            
-            // 使用当前页面的背景色
-            const currentColor = document.body.style.backgroundColor || '#ffffff';
-            ctx.fillStyle = currentColor;
-            ctx.fillRect(0, 0, width, height);
-            
-            if (includeParams) {
-                const padding = Math.min(width, height) * 0.02;  // 边距
-                const colorBoxSize = Math.min(width, height) * 0.03;  // 色块大小
-                const lineHeight = colorBoxSize * 1.5;  // 行高
-                const fontSize = Math.min(width, height) * 0.018;  // 字体大小
-                
-                ctx.font = `${fontSize}px Arial`;
-                ctx.fillStyle = 'white';
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-                ctx.shadowBlur = 4;
-                
-                let currentY = height - padding;
-                
-                // 绘制RGB值（直接选择或保存区的颜色）
-                if (selectedColor && !selectedColors.includes(selectedColor)) {
-                    currentY -= lineHeight;
-                    const rgb = hexToRgb(selectedColor);
-                    ctx.fillText(
-                        `RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`, 
-                        padding, 
-                        currentY + colorBoxSize*0.7
-                    );
-                }
-                
-                // 绘制调色盘颜色（使用颜色块和百分比）
-                selectedColors.forEach((color, index) => {
-                    if (color) {
-                        currentY -= lineHeight;
-                        // 绘制色块
-                        ctx.shadowBlur = 0;
-                        ctx.fillStyle = color;
-                        ctx.fillRect(padding, currentY, colorBoxSize, colorBoxSize);
-                        // 绘制文字
-                        ctx.shadowBlur = 4;
-                        ctx.fillStyle = 'white';
-                        ctx.fillText(
-                            `调色盘${index + 1} (${colorIntensities[index]}%)`, 
-                            padding + colorBoxSize + padding/2, 
-                            currentY + colorBoxSize*0.7
-                        );
-                    }
-                });
-                
-                // 绘制渐变颜色示例图和RGB值
-                colors.forEach((color, index) => {
-                    currentY -= lineHeight;
-                    const rgb = hexToRgb(color);
-                    // 绘制色块
-                    ctx.shadowBlur = 0;
-                    ctx.fillStyle = color;
-                    ctx.fillRect(padding, currentY, colorBoxSize, colorBoxSize);
-                    // 绘制文字
-                    ctx.shadowBlur = 4;
-                    ctx.fillStyle = 'white';
-                    ctx.fillText(
-                        `颜色${index + 1}: RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`, 
-                        padding + colorBoxSize + padding/2, 
-                        currentY + colorBoxSize*0.7
-                    );
-                });
-            }
-            
-            // 导出图
-            const link = document.createElement('a');
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            link.download = `color-card-${timestamp}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            
-            closeExportDialog();
-        }
     </script>
 </body>
 </html>
