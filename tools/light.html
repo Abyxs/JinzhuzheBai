@@ -842,7 +842,7 @@
 
         // 修改点击事件监器，让点击空白处也能显示调色器
         const isAnyDialogOpen = () => {
-            const dialogs = document.querySelectorAll('.color-dialog, .mixer-dialog, .gradient-dialog');
+            const dialogs = document.querySelectorAll('.color-dialog, .gradient-dialog, .mixer-dialog');
             return Array.from(dialogs).some(dialog => dialog.style.display === 'block');
         };
 
@@ -943,16 +943,9 @@
             canvas.width = width;
             canvas.height = height;
             
-            // 使用 createLinearGradient 方法来创建渐变
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0); // 从左到右的线性渐变
-            gradient.addColorStop(0, '#ff4757'); // 起始颜色
-            gradient.addColorStop(1, '#ff7f50'); // 结束颜色
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, width, height);
-            
-            // 使用当前页面的背景色
-            const currentColor = document.body.style.backgroundColor || '#ffffff';
-            ctx.fillStyle = currentColor;
+            // 使用当前页面的背景色（包括渐变）
+            const currentBackground = document.body.style.background;
+            ctx.fillStyle = currentBackground;
             ctx.fillRect(0, 0, width, height);
             
             if (includeParams) {
