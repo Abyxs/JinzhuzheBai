@@ -171,10 +171,6 @@
             z-index: 1;
         }
 
-        .color-picker-container {
-            margin: 15px 0;
-        }
-
         .save-form {
             display: none;
             margin: 15px 0;
@@ -204,41 +200,55 @@
             border-top: 2px solid #f0f0f0;
         }
 
-        button {
-            padding: 8px 18px;
-            border: 1px solid #e0e0e0;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
+        .buttons button {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 8px 16px;
             font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            color: #495057;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        button:hover {
-            background: #f5f5f5;
-            transform: translateY(-1px);
+        .buttons button:hover {
+            background-color: #e9ecef;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        button.primary {
-            background: #1a73e8;
-            color: white;
-            border: none;
-        }
-
-        button.primary:hover {
-            background: #1557b0;
-            box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+        .buttons button:active {
+            background-color: #dee2e6;
+            transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #colorPicker {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
             width: 100%;
-            height: 48px;
-            padding: 4px;
+            height: 50px;
+            padding: 0;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        #colorPicker::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        #colorPicker::-webkit-color-swatch {
+            border: none;
+            border-radius: 6px;
+        }
+
+        #colorPicker::-moz-color-swatch {
+            border: none;
+            border-radius: 6px;
         }
 
         #colorPicker:hover {
@@ -399,11 +409,156 @@
         .clear-btn:hover {
             background-color: #ff6666;
         }
+
+        /* 只在移动端下添加以下样式 */
+        @media (max-width: 768px) {
+            input[type="color"] {
+                -webkit-appearance: none;
+                width: 100%;
+                height: 40px;
+            }
+
+            .color-dialog, .mixer-dialog {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                min-width: auto;
+                max-height: 90vh;
+                overflow-y: auto;
+                margin: 0;
+                padding: 15px;
+                border-radius: 16px 16px 0 0;
+                box-sizing: border-box;
+                background: rgba(255, 255, 255, 0.95);
+            }
+
+            .header {
+                position: sticky;
+                top: 0;
+                background: inherit;
+                z-index: 1;
+                padding-bottom: 10px;
+                margin: -15px -15px 10px -15px;
+                padding: 15px;
+            }
+
+            .saved-colors {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            /* 调色盘布优 */
+            .color-palettes {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .palette-container {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 0;
+            }
+
+            .color-palette {
+                width: 40px;
+                height: 40px;
+                flex-shrink: 0;
+            }
+
+            .intensity-slider {
+                width: 120px;
+                margin: 0 10px;
+            }
+
+            .intensity-value {
+                width: 50px;
+                text-align: center;
+            }
+
+            .clear-btn {
+                margin-top: 0;
+                padding: 5px 10px;
+                width: 60px;
+            }
+
+            .buttons {
+                position: sticky;
+                bottom: 0;
+                background: inherit;
+                margin: 10px -15px -15px -15px;
+                padding: 15px;
+                border-top: 1px solid rgba(0,0,0,0.1);
+            }
+        }
+        
+        .gradient-dialog {
+            height: 25%; /* 将高度设置为与主页弹窗一致 */
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            z-index: 1002;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.3s ease;
+        }
+        
+        .gradient-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .gradient-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .gradient-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .gradient-dialog .header button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .gradient-dialog .header button:hover {
+            background: #f5f5f5;
+            color: #666;
+        }
     </style>
 </head>
 <body>
     <div id="content">
-        <div id="message" style="display: none">点击任意位置打开调色器</div>
+        <div id="message" style="display: none">击任意位置打开调色器</div>
     </div>
 
     <div id="colorDialog" class="color-dialog">
@@ -417,20 +572,12 @@
             <div class="saved-colors" id="savedColors"></div>
         </div>
 
-        <div class="color-picker-container">
-            <input type="color" id="colorPicker">
-        </div>
-
-        <div class="save-form" id="saveForm">
-            <input type="text" id="colorName" placeholder="输入颜色名称（回车保存）">
-        </div>
-
         <div class="buttons">
-            <button onclick="closeDialog()">取消</button>
-            <button onclick="toggleSaveForm()">保存</button>
             <button onclick="showMixerDialog()">调色盘</button>
-            <button class="primary" onclick="applyColor()">确定</button>
+            <button onclick="showColorPicker()">选择颜色</button>
+            <button onclick="showSaveDialog()">保存色卡</button>
             <button onclick="showExportDialog()">导出色卡</button>
+            <button onclick="showGradientDialog()">渐变</button>
         </div>
     </div>
 
@@ -441,7 +588,7 @@
         </div>
         
         <div class="export-size-container">
-            <label>选择尺寸：</label>
+            <label>择尺寸：</label>
             <select id="exportSize">
                 <optgroup label="电脑屏幕">
                     <option value="1920x1080">1920×1080 (Full HD)</option>
@@ -455,7 +602,7 @@
                 </optgroup>
                 <optgroup label="证件照">
                     <option value="295x413">1寸照片(295×413)</option>
-                    <option value="413x579">2寸照片(413×579)</option>
+                    <option value="413x579">2片(413×579)</option>
                 </optgroup>
             </select>
         </div>
@@ -477,28 +624,80 @@
         
         <div class="color-palettes">
             <div class="palette-container" data-index="0">
-                <div class="color-palette empty" onclick="openColorPicker(0)"></div>
+                <div class="color-palette empty" onclick="openColorPicker(0, event)"></div>
                 <input type="range" min="0" max="100" value="100" class="intensity-slider" oninput="updateMixedColor()">
                 <span class="intensity-value">100%</span>
                 <button class="clear-btn" onclick="clearPalette(0)">清空</button>
             </div>
             <div class="palette-container" data-index="1">
-                <div class="color-palette empty" onclick="openColorPicker(1)"></div>
+                <div class="color-palette empty" onclick="openColorPicker(1, event)"></div>
                 <input type="range" min="0" max="100" value="100" class="intensity-slider" oninput="updateMixedColor()">
                 <span class="intensity-value">100%</span>
                 <button class="clear-btn" onclick="clearPalette(1)">清空</button>
             </div>
             <div class="palette-container" data-index="2">
-                <div class="color-palette empty" onclick="openColorPicker(2)"></div>
+                <div class="color-palette empty" onclick="openColorPicker(2, event)"></div>
                 <input type="range" min="0" max="100" value="100" class="intensity-slider" oninput="updateMixedColor()">
                 <span class="intensity-value">100%</span>
                 <button class="clear-btn" onclick="clearPalette(2)">清空</button>
             </div>
             <div class="palette-container" data-index="3">
-                <div class="color-palette empty" onclick="openColorPicker(3)"></div>
+                <div class="color-palette empty" onclick="openColorPicker(3, event)"></div>
                 <input type="range" min="0" max="100" value="100" class="intensity-slider" oninput="updateMixedColor()">
                 <span class="intensity-value">100%</span>
                 <button class="clear-btn" onclick="clearPalette(3)">清空</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="saveColorDialog" class="color-dialog" style="display: none; z-index: 1002;">
+        <div class="header">
+            <span>保存色卡</span>
+            <button onclick="closeSaveDialog()">×</button>
+        </div>
+        <div style="padding: 15px;">
+            <input type="text" id="newColorName" placeholder="输入颜色名称" style="width: 100%; padding: 8px; margin-bottom: 15px;">
+            <div class="buttons">
+                <button onclick="closeSaveDialog()">取消</button>
+                <button class="primary" onclick="saveNewColor()">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="colorPickerDialog" class="color-dialog" style="display: none; z-index: 1002;">
+        <div class="header">
+            <span>选择颜色</span>
+            <button onclick="closeColorPickerDialog()">×</button>
+        </div>
+        <div style="padding: 15px;">
+            <input type="color" id="colorPicker" style="width: 100%; height: 40px;">
+            <div class="buttons" style="margin-top: 15px;">
+                <button onclick="closeColorPickerDialog()">取消</button>
+                <button class="primary" onclick="confirmColor()">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gradientDialog" class="gradient-dialog">
+        <div class="header">
+            <span>选择渐变样式</span>
+            <button onclick="closeGradientDialog()">×</button>
+        </div>
+        <div style="padding: 15px;">
+            <select id="gradientSelect" style="width: 100%; padding: 8px;">
+                <option value="linear-gradient(to right, #ff7e5f, #feb47b)">左右渐变</option>
+                <option value="linear-gradient(to bottom, #6a11cb, #2575fc)">上下渐变</option>
+                <option value="radial-gradient(circle, #00c6ff, #0072ff)">旋转渐变</option>
+            </select>
+            <div class="color-boxes" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                <input type="color" class="color-input" value="#ffffff">
+                <input type="color" class="color-input" value="#ffffff">
+                <input type="color" class="color-input" value="#ffffff">
+                <input type="color" class="color-input" value="#ffffff">
+                <input type="color" class="color-input" value="#ffffff">
+            </div>
+            <div class="buttons" style="margin-top: 15px;">
+                <button onclick="applyGradient()">应用渐变</button>
             </div>
         </div>
     </div>
@@ -513,24 +712,29 @@
         const content = document.getElementById('content');
         
         let selectedColor = '#FFAA57';
+        let selectedColors = new Array(4).fill(null);  // 调色盘颜色数组
+        let colorIntensities = selectedColors.map((color, index) => {
+            const slider = document.querySelector(`.palette-container[data-index="${index}"] .intensity-slider`);
+            return color ? parseInt(slider.value) : 0;
+        }); // 调色盘强度数组
         let isSaveFormVisible = false;
 
         // 预设光效
         const presetLights = [
             { name: "暖白光", value: "#FFAA57" },    // RGB(255, 170, 87)
-            { name: "自然光", value: "#FFE4C4" },    // RGB(255, 228, 196)
+            { name: "自光", value: "#FFE4C4" },    // RGB(255, 228, 196)
             { name: "冷白光", value: "#FFECE0" },    // RGB(255, 236, 224)
             { name: "紫光", value: "#E50AF5" },      // RGB(229, 10, 245)
             { name: "金色灯光", value: "#FF5700" },  // RGB(255, 87, 0)
             { name: "温暖氛围", value: "#FF93A9" },  // RGB(255, 147-209, 41-163)
             { name: "冷清氛围", value: "#C9E2FF" },  // RGB(201-255, 226-255, 224-255)
-            { name: "复古高级", value: "#FF5700" }   // RGB(255, 87, 0)
+            { name: "复古级", value: "#FF5700" }   // RGB(255, 87, 0)
         ];
 
-        // 初化保存的颜色列表
+        // 初化的颜色列表
         let savedColorsList = JSON.parse(localStorage.getItem('savedColors') || 'null') || [...presetLights];
         
-        // 确保预设颜色被保存
+        // 确保预颜色被保存
         if (savedColorsList.length === 0) {
             savedColorsList = [...presetLights];
             localStorage.setItem('savedColors', JSON.stringify(savedColorsList));
@@ -545,7 +749,7 @@
                 colorCard.style.backgroundColor = color.value;
                 colorCard.setAttribute('data-name', color.name);
                 
-                // 添加删除按钮
+                // 添删除按钮
                 const deleteBtn = document.createElement('div');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.innerHTML = '×';
@@ -557,8 +761,14 @@
                 colorCard.appendChild(deleteBtn);
                 
                 colorCard.onclick = () => {
-                    colorPicker.value = color.value;
-                    selectedColor = color.value;
+                    const selectedValue = color.value;
+                    colorPicker.value = selectedValue;
+                    selectedColor = selectedValue;
+                    
+                    // 更新页面背景色和颜色选择背景色
+                    document.body.style.backgroundColor = selectedValue;
+                    content.style.backgroundColor = selectedValue;
+                    colorPicker.style.backgroundColor = selectedValue;
                 };
                 
                 savedColors.appendChild(colorCard);
@@ -572,7 +782,7 @@
             displaySavedColors();
         }
 
-        // 保存新颜色
+        // 保��新颜色
         function saveColor() {
             const name = colorName.value.trim();
             if (!name) {
@@ -601,6 +811,7 @@
         function applyColor() {
             document.body.style.backgroundColor = selectedColor;
             content.style.backgroundColor = selectedColor;
+            colorPicker.style.backgroundColor = selectedColor;  // 确保颜色选择器背景色同步
             closeDialog();
         }
 
@@ -629,17 +840,24 @@
             message.style.display = 'none';
         });
 
-        // 修改点击事件监听器，让点击空白处也能显示调色器
+        // 修改点击事件监器，让点击空白处也能显示调色器
+        const isAnyDialogOpen = () => {
+            const dialogs = document.querySelectorAll('.color-dialog, .mixer-dialog, .gradient-dialog');
+            return Array.from(dialogs).some(dialog => dialog.style.display === 'block');
+        };
+
         document.body.addEventListener('click', function(e) {
-            const mixerDialog = document.getElementById('mixerDialog');
-            if (e.target !== dialog && 
-                !dialog.contains(e.target) && 
-                dialog.style.display !== 'block' &&
-                mixerDialog.style.display !== 'block' &&
-                !mixerDialog.contains(e.target)) {
-                // 显示调色器对话框
-                showDialog();
-                message.style.display = 'none';
+            if (!isAnyDialogOpen()) {
+                const mixerDialog = document.getElementById('mixerDialog');
+                if (e.target !== dialog && 
+                    !dialog.contains(e.target) && 
+                    dialog.style.display !== 'block' &&
+                    mixerDialog.style.display !== 'block' &&
+                    !mixerDialog.contains(e.target)) {
+                    // 显示调色器对话框
+                    showDialog();
+                    message.style.display = 'none';
+                }
             }
         });
 
@@ -660,18 +878,18 @@
             e.stopPropagation();
         });
 
-        // ��加导出色卡功能
+        // 加导出色卡功能
         function exportColorCard() {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
 
-            // 设置色卡大小（例如：A4纸大小）
+            // 设置色卡大小（例如：A4纸大小
             const width = 595; // A4纸宽度（像素）
             const height = 842; // A4纸高度（像素）
             canvas.width = width;
             canvas.height = height;
 
-            // 绘制背景
+            // 背景
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, width, height);
 
@@ -700,7 +918,7 @@
             link.click();
         }
 
-        // 添加导出相关函数
+        // 添导出相关函数
         function showExportDialog() {
             document.getElementById('exportDialog').style.display = 'block';
         }
@@ -710,6 +928,12 @@
         }
 
         function exportCurrentColor(includeParams = false) {
+            // 在导出之前更新 colorIntensities
+            colorIntensities = selectedColors.map((color, index) => {
+                const slider = document.querySelector(`.palette-container[data-index="${index}"] .intensity-slider`);
+                return color ? parseInt(slider.value) : 0;
+            });
+
             const sizeSelect = document.getElementById('exportSize');
             const [width, height] = sizeSelect.value.split('x').map(Number);
             
@@ -719,12 +943,18 @@
             canvas.width = width;
             canvas.height = height;
             
+            // 使用 createLinearGradient 方法来创建渐变
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0); // 从左到右的线性渐变
+            gradient.addColorStop(0, '#ff4757'); // 起始颜色
+            gradient.addColorStop(1, '#ff7f50'); // 结束颜色
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
             // 使用当前页面的背景色
             const currentColor = document.body.style.backgroundColor || '#ffffff';
             ctx.fillStyle = currentColor;
             ctx.fillRect(0, 0, width, height);
             
-            // 如果需要显示参数
             if (includeParams) {
                 const padding = Math.min(width, height) * 0.02;  // 边距
                 const colorBoxSize = Math.min(width, height) * 0.03;  // 色块大小
@@ -738,8 +968,8 @@
                 
                 let currentY = height - padding;
                 
-                // 绘制主色（显示RGB值）
-                if (selectedColor) {
+                // 绘制RGB值（直接选择或保存区的颜色）
+                if (selectedColor && !selectedColors.includes(selectedColor)) {
                     currentY -= lineHeight;
                     const rgb = hexToRgb(selectedColor);
                     ctx.fillText(
@@ -749,7 +979,7 @@
                     );
                 }
                 
-                // 绘制调色盘颜色（使用颜色块）
+                // 绘制调色盘颜色（使用颜色块和百分比）
                 selectedColors.forEach((color, index) => {
                     if (color) {
                         currentY -= lineHeight;
@@ -767,9 +997,29 @@
                         );
                     }
                 });
+                
+                // 绘制渐变颜色示例图和RGB值
+                const colorInputs = document.querySelectorAll('.color-input');
+                const colors = Array.from(colorInputs).map(input => input.value).filter(color => color !== '#ffffff');
+                colors.forEach((color, index) => {
+                    currentY -= lineHeight;
+                    const rgb = hexToRgb(color);
+                    // 绘制色块
+                    ctx.shadowBlur = 0;
+                    ctx.fillStyle = color;
+                    ctx.fillRect(padding, currentY, colorBoxSize, colorBoxSize);
+                    // 绘制文字
+                    ctx.shadowBlur = 4;
+                    ctx.fillStyle = 'white';
+                    ctx.fillText(
+                        `颜色${index + 1}: RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`, 
+                        padding + colorBoxSize + padding/2, 
+                        currentY + colorBoxSize*0.7
+                    );
+                });
             }
             
-            // 导出图片
+            // 导出图
             const link = document.createElement('a');
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
             link.download = `color-card-${timestamp}.png`;
@@ -782,6 +1032,8 @@
         // 添加遮罩层相关代码
         function showDialog() {
             dialog.style.display = 'block';
+            const currentColor = document.body.style.backgroundColor || '#ffffff';
+            updateColorDisplay(currentColor);
         }
 
         function closeDialog() {
@@ -791,9 +1043,6 @@
         }
 
         // 添加调色盘相关功能
-        let selectedColors = new Array(4).fill(null);
-        let colorIntensities = new Array(4).fill(100);
-
         function showMixerDialog() {
             document.getElementById('mixerDialog').style.display = 'block';
             // 隐藏其他对话框
@@ -805,63 +1054,115 @@
             document.getElementById('mixerDialog').style.display = 'none';
         }
 
-        function openColorPicker(index) {
-            const input = document.createElement('input');
-            input.type = 'color';
-            input.onchange = (e) => {
-                selectedColors[index] = e.target.value;
-                const palette = document.querySelector(`.palette-container[data-index="${index}"] .color-palette`);
-                palette.style.backgroundColor = e.target.value;
-                palette.style.borderStyle = 'solid';
-                updateMixedColor();
-            };
-            input.click();
-        }
-
-        function updateMixedColor() {
-            // 获取所有滑块的值
-            const sliders = document.querySelectorAll('.intensity-slider');
-            sliders.forEach((slider, index) => {
-                colorIntensities[index] = parseInt(slider.value);
-                // 更新百分比显示
-                const valueDisplay = slider.nextElementSibling;
-                valueDisplay.textContent = `${slider.value}%`;
-            });
-
-            // 检查是否所有调色盘都为空
-            const hasAnyColor = selectedColors.some(color => color !== null);
+        // 修改调色盘相关函数
+        function openColorPicker(index, event) {
+            // 阻止事件冒泡
+            event.stopPropagation();
             
-            if (!hasAnyColor) {
-                // 如果所有调色盘都为空，恢复为白色背景
-                document.body.style.backgroundColor = '#ffffff';
-                content.style.backgroundColor = '#ffffff';
+            // 防止重复创建
+            if (document.querySelector('input[type="color"].temp-picker')) {
                 return;
             }
 
-            // 混合颜色
-            let r = 0, g = 0, b = 0;
-            let totalIntensity = 0;
+            const input = document.createElement('input');
+            input.type = 'color';
+            input.className = 'temp-picker';
+            
+            // 如果当前调色盘已有颜色，设置为当前颜色
+            if (selectedColors[index]) {
+                input.value = selectedColors[index];
+            }
+            
+            input.style.cssText = `
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+            `;
+            
+            const palette = document.querySelector(`.palette-container[data-index="${index}"] .color-palette`);
+            palette.style.position = 'relative';
+            palette.appendChild(input);
+            
+            // 实时更新颜色
+            input.addEventListener('input', (e) => {
+                const newColor = e.target.value;
+                selectedColors[index] = newColor;
+                palette.style.backgroundColor = newColor;
+                palette.style.borderStyle = 'solid';
+                
+                // 更新混合颜色
+                updateMixedColor();
+            });
 
+            // 颜色选择完成
+            input.addEventListener('change', (e) => {
+                const finalColor = e.target.value;
+                selectedColors[index] = finalColor;
+                palette.style.backgroundColor = finalColor;
+                palette.style.borderStyle = 'solid';
+                
+                // 更新混合颜色
+                updateMixedColor();
+                
+                input.remove();
+            });
+            
+            // 处理取消选择
+            input.addEventListener('cancel', () => {
+                input.remove();
+            });
+            
+            // 支持触摸事件
+            input.addEventListener('touchstart', () => {
+                input.click();
+            });
+
+            input.click();
+        }
+
+        // 优化混色函数
+        function updateMixedColor() {
+            const sliders = document.querySelectorAll('.intensity-slider');
+            let totalWeight = 0;
+            let r = 0, g = 0, b = 0;
+
+            // 计算每个颜色的权重和贡献
             selectedColors.forEach((color, index) => {
                 if (color) {
-                    const intensity = colorIntensities[index] / 100;
+                    const intensity = parseInt(sliders[index].value) / 100;
                     const rgb = hexToRgb(color);
                     r += rgb.r * intensity;
                     g += rgb.g * intensity;
                     b += rgb.b * intensity;
-                    totalIntensity += intensity;
+                    totalWeight += intensity;
+                    
+                    // 更新强度显示
+                    const valueDisplay = sliders[index].nextElementSibling;
+                    valueDisplay.textContent = `${sliders[index].value}%`;
                 }
             });
 
-            if (totalIntensity > 0) {
-                r = Math.round(r / totalIntensity);
-                g = Math.round(g / totalIntensity);
-                b = Math.round(b / totalIntensity);
-                
-                const mixedColor = rgbToHex(r, g, b);
-                document.body.style.backgroundColor = mixedColor;
-                content.style.backgroundColor = mixedColor;
+            // 如果没有选择任何颜色，设置为白色
+            if (totalWeight === 0) {
+                document.body.style.backgroundColor = '#ffffff';
+                content.style.backgroundColor = '#ffffff';
+                selectedColor = '#ffffff';
+                return;
             }
+
+            // 计算加权平均值
+            r = Math.round(r / totalWeight);
+            g = Math.round(g / totalWeight);
+            b = Math.round(b / totalWeight);
+            
+            const mixedColor = rgbToHex(r, g, b);
+            document.body.style.backgroundColor = mixedColor;
+            content.style.backgroundColor = mixedColor;
+            selectedColor = mixedColor;
         }
 
         // 辅助函数：将十六进制颜色转换为RGB
@@ -874,26 +1175,303 @@
             } : null;
         }
 
-        // 辅助函数：将RGB转换为十六进制颜色
+        // 辅助数：将RGB转换为十六进制颜色
         function rgbToHex(r, g, b) {
             return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
         }
 
-        // 清空单个调色盘的函数
+        // 优化清空调色盘函数
         function clearPalette(index) {
             selectedColors[index] = null;
             const palette = document.querySelector(`.palette-container[data-index="${index}"] .color-palette`);
+            const slider = document.querySelector(`.palette-container[data-index="${index}"] .intensity-slider`);
+            const valueDisplay = slider.nextElementSibling;
+            
+            // 重置调色盘样式
             palette.style.backgroundColor = '#f5f5f5';
             palette.style.borderStyle = 'dashed';
             
-            // 重置滑块值
-            const slider = document.querySelector(`.palette-container[data-index="${index}"] .intensity-slider`);
+            // 重置滑块
             slider.value = 100;
-            const valueDisplay = slider.nextElementSibling;
             valueDisplay.textContent = '100%';
             
             // 更新混合颜色
             updateMixedColor();
+        }
+
+        // 辅助函数：将 RGB 颜色值换为十六进制
+        function getRGBValues(color) {
+            if (color.startsWith('#')) {
+                const rgb = hexToRgb(color);
+                return [rgb.r, rgb.g, rgb.b];
+            }
+            const matches = color.match(/\d+/g);
+            return matches ? matches.map(Number) : [255, 255, 255];
+        }
+
+        // 添加新的保存色卡相关函
+        function showSaveDialog() {
+            document.getElementById('saveColorDialog').style.display = 'block';
+            document.getElementById('newColorName').value = '';
+            document.getElementById('newColorName').focus();
+        }
+
+        function closeSaveDialog() {
+            document.getElementById('saveColorDialog').style.display = 'none';
+        }
+
+        function saveNewColor() {
+            const name = document.getElementById('newColorName').value.trim();
+            if (!name) {
+                alert('请输入颜色名称');
+                return;
+            }
+
+            // 获取前颜色并确保是十六进制格式
+            let currentColor = document.body.style.backgroundColor || '#ffffff';
+            if (currentColor.startsWith('rgb')) {
+                // 果是RGB格式，转换为十六进制
+                const rgb = currentColor.match(/\d+/g);
+                currentColor = rgbToHex(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+            }
+
+            // 获取RGB值用于注释
+            const rgb = hexToRgb(currentColor);
+            
+            // 创建新的色卡对象，式与预设色卡相同
+            const newColor = {
+                name: name,
+                value: currentColor,    // 例如: "#FFAA57"
+                comment: `RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`  // 添加RGB注释
+            };
+
+            if (savedColorsList.length >= 12) {
+                savedColorsList.shift();
+            }
+            
+            savedColorsList.push(newColor);
+            localStorage.setItem('savedColors', JSON.stringify(savedColorsList));
+            
+            displaySavedColors();
+            closeSaveDialog();
+        }
+
+        // 添加颜色显示更新函数
+        function updateColorDisplay(color) {
+            // 更新颜色选择器的值和背景
+            colorPicker.value = color;
+            colorPicker.style.backgroundColor = color;
+            
+            // 更新页面背景
+            document.body.style.backgroundColor = color;
+            content.style.backgroundColor = color;
+        }
+
+        // 添加颜色选择相关函数
+        function showColorPicker() {
+            document.getElementById('colorPickerDialog').style.display = 'block';
+            // 设置颜色选择器的初始值为当前页面颜色
+            colorPicker.value = document.body.style.backgroundColor || '#ffffff';
+        }
+
+        function closeColorPickerDialog() {
+            document.getElementById('colorPickerDialog').style.display = 'none';
+            // 关闭时恢复原来的颜色
+            document.body.style.backgroundColor = selectedColor;
+            content.style.backgroundColor = selectedColor;
+        }
+
+        function confirmColor() {
+            const selectedValue = colorPicker.value;
+            document.body.style.backgroundColor = selectedValue;
+            content.style.backgroundColor = selectedValue;
+            selectedColor = selectedValue;
+            closeColorPickerDialog();
+        }
+
+        // 修改颜色选择器的事件监听
+        colorPicker.addEventListener('input', function(e) {
+            selectedColor = e.target.value;
+        });
+
+        // 在脚本末尾添加以下代码
+        document.addEventListener('click', function(e) {
+            const colorDialog = document.getElementById('colorDialog');
+            const mixerDialog = document.getElementById('mixerDialog');
+            const exportDialog = document.getElementById('exportDialog');
+            const saveColorDialog = document.getElementById('saveColorDialog');
+            const colorPickerDialog = document.getElementById('colorPickerDialog');
+            const gradientDialog = document.getElementById('gradientDialog');
+
+            // 检查点击是否在弹窗外部
+            if (!e.target.closest('.color-dialog') && !e.target.closest('.mixer-dialog') && !e.target.closest('.gradient-dialog')) {
+                // 关闭所有弹窗
+                colorDialog.style.display = 'none';
+                mixerDialog.style.display = 'none';
+                exportDialog.style.display = 'none';
+                saveColorDialog.style.display = 'none';
+                colorPickerDialog.style.display = 'none';
+                gradientDialog.style.display = 'none';
+            }
+        });
+
+        // 修改所有弹窗的点击事件，阻止事件冒泡
+        document.querySelectorAll('.color-dialog, .mixer-dialog, .gradient-dialog').forEach(dialog => {
+            dialog.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // 添加渐变相关函数
+        function showGradientDialog() {
+            document.getElementById('gradientDialog').style.display = 'block';
+            closeDialog(); // 关闭主页弹窗
+        }
+
+        function closeGradientDialog() {
+            document.getElementById('gradientDialog').style.display = 'none';
+        }
+
+        function applyGradient() {
+            const gradientSelect = document.getElementById('gradientSelect');
+            const gradientType = gradientSelect.options[gradientSelect.selectedIndex].text;
+            let customGradient;
+
+            const colorInputs = document.querySelectorAll('.color-input');
+            const colors = Array.from(colorInputs).map(input => input.value).filter(color => color !== '#ffffff');
+
+            if (colors.length === 0) {
+                console.error('No valid colors selected for gradient.');
+                return;
+            }
+
+            console.log('Selected colors:', colors); // Debugging line
+
+            if (gradientType.includes('左右渐变')) {
+                customGradient = `linear-gradient(to right, ${colors.join(', ')})`;
+            } else if (gradientType.includes('上下渐变')) {
+                customGradient = `linear-gradient(to bottom, ${colors.join(', ')})`;
+            } else if (gradientType.includes('旋转渐变')) {
+                customGradient = `radial-gradient(circle, ${colors.join(', ')})`;
+            } else {
+                customGradient = gradientStyle;
+            }
+            console.log('Applying gradient:', customGradient); // Debugging line
+            document.body.style.background = customGradient;
+            closeGradientDialog();
+            closeDialog(); // 关闭主页弹窗
+        }
+        
+        // 在导出之前，将渐变颜色应用到画布上，以确保渐变正确地绘制在画布上
+        function exportCurrentColor(includeParams = false) {
+            // 在导出之前更新 colorIntensities
+            colorIntensities = selectedColors.map((color, index) => {
+                const slider = document.querySelector(`.palette-container[data-index="${index}"] .intensity-slider`);
+                return color ? parseInt(slider.value) : 0;
+            });
+
+            const sizeSelect = document.getElementById('exportSize');
+            const [width, height] = sizeSelect.value.split('x').map(Number);
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            // 使用渐变色填充画布
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            const gradientType = document.getElementById('gradientSelect').options[document.getElementById('gradientSelect').selectedIndex].text;
+            const colorInputs = document.querySelectorAll('.color-input');
+            const colors = Array.from(colorInputs).map(input => input.value).filter(color => color !== '#ffffff');
+            if (gradientType.includes('左右渐变')) {
+                gradient.addColorStop(0, colors[0]);
+                gradient.addColorStop(1, colors[1]);
+            } else if (gradientType.includes('上下渐变')) {
+                gradient.addColorStop(0, colors[0]);
+                gradient.addColorStop(1, colors[1]);
+            } else if (gradientType.includes('旋转渐变')) {
+                gradient.addColorStop(0, colors[0]);
+                gradient.addColorStop(1, colors[1]);
+            }
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 使用当前页面的背景色
+            const currentColor = document.body.style.backgroundColor || '#ffffff';
+            ctx.fillStyle = currentColor;
+            ctx.fillRect(0, 0, width, height);
+            
+            if (includeParams) {
+                const padding = Math.min(width, height) * 0.02;  // 边距
+                const colorBoxSize = Math.min(width, height) * 0.03;  // 色块大小
+                const lineHeight = colorBoxSize * 1.5;  // 行高
+                const fontSize = Math.min(width, height) * 0.018;  // 字体大小
+                
+                ctx.font = `${fontSize}px Arial`;
+                ctx.fillStyle = 'white';
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 4;
+                
+                let currentY = height - padding;
+                
+                // 绘制RGB值（直接选择或保存区的颜色）
+                if (selectedColor && !selectedColors.includes(selectedColor)) {
+                    currentY -= lineHeight;
+                    const rgb = hexToRgb(selectedColor);
+                    ctx.fillText(
+                        `RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`, 
+                        padding, 
+                        currentY + colorBoxSize*0.7
+                    );
+                }
+                
+                // 绘制调色盘颜色（使用颜色块和百分比）
+                selectedColors.forEach((color, index) => {
+                    if (color) {
+                        currentY -= lineHeight;
+                        // 绘制色块
+                        ctx.shadowBlur = 0;
+                        ctx.fillStyle = color;
+                        ctx.fillRect(padding, currentY, colorBoxSize, colorBoxSize);
+                        // 绘制文字
+                        ctx.shadowBlur = 4;
+                        ctx.fillStyle = 'white';
+                        ctx.fillText(
+                            `调色盘${index + 1} (${colorIntensities[index]}%)`, 
+                            padding + colorBoxSize + padding/2, 
+                            currentY + colorBoxSize*0.7
+                        );
+                    }
+                });
+                
+                // 绘制渐变颜色示例图和RGB值
+                colors.forEach((color, index) => {
+                    currentY -= lineHeight;
+                    const rgb = hexToRgb(color);
+                    // 绘制色块
+                    ctx.shadowBlur = 0;
+                    ctx.fillStyle = color;
+                    ctx.fillRect(padding, currentY, colorBoxSize, colorBoxSize);
+                    // 绘制文字
+                    ctx.shadowBlur = 4;
+                    ctx.fillStyle = 'white';
+                    ctx.fillText(
+                        `颜色${index + 1}: RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`, 
+                        padding + colorBoxSize + padding/2, 
+                        currentY + colorBoxSize*0.7
+                    );
+                });
+            }
+            
+            // 导出图
+            const link = document.createElement('a');
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            link.download = `color-card-${timestamp}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            closeExportDialog();
         }
     </script>
 </body>
