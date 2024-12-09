@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Activation Scripts 使用指南</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2E8B57;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .warning {
+            color: #d9534f;
+        }
+        .copy-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('代码已复制到剪贴板');
+            }, function(err) {
+                alert('复制失败: ', err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Microsoft Activation Scripts 使用指南</h1>
+    <p>此页面将指导您如何使用Microsoft Activation Scripts（MAS）来激活Windows和Office产品。</p>
+
+    <h2>步骤 1：打开PowerShell</h2>
+    <ol>
+        <li>点击屏幕左下角的“开始”菜单。</li>
+        <li>在搜索框中输入“PowerShell”。</li>
+        <li>右键点击“Windows PowerShell”，选择“以管理员身份运行”。</li>
+    </ol>
+
+    <h2>步骤 2：输入命令并回车</h2>
+    <p>复制以下命令，然后在PowerShell中粘贴并按回车键：</p>
+    <pre id="command">irm https://get.activated.win | iex</pre>
+    <button class="copy-button" onclick="copyToClipboard(document.getElementById('command').innerText)">复制命令</button>
+    <p class="warning">注意：当前命令将来可能会被弃用，请关注更新。</p>
+    <p><strong>脚本来源：</strong>此脚本来源于网络，请谨慎使用并确保其合法性。</p>
+
+    <h2>步骤 3：运行脚本</h2>
+    <p>下载完成后，脚本会自动运行。如果未运行，请检查您的防病毒软件是否阻止了脚本。</p>
+
+    <h2>步骤 4：激活产品</h2>
+    <p>脚本会提供一个菜单供您选择激活Windows或Office。请根据提示进行操作。</p>
+
+    <h2>故障排除</h2>
+    <p>如果遇到问题，请访问以下链接获取帮助：</p>
+    <ul>
+        <li><a href="https://massgrave.dev/troubleshoot" target="_blank">故障排除指南</a></li>
+    </ul>
+
+    <h2>注意事项</h2>
+    <p>请确保您遵循所有相关法律法规和软件许可协议。</p>
+</body>
+</html>
